@@ -16,5 +16,9 @@ public interface HttpResponse {
 
     void setContent(byte[] content);
 
+    HttpStatus getHttpStatus();
+
+    void setHttpStatus(HttpStatus httpStatus);
+
     void addHeader(String header, String value);
 }
