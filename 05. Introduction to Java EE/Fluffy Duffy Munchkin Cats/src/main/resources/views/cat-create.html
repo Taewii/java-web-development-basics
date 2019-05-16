@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Create</title>
+</head>
+<body>
+<h1>Create Cat!</h1>
+
+<form action="/cats/create" method="POST">
+    <label for="name">
+        Name: <input id="name" name="name" type="text">
+    </label>
+    <br>
+    <label for="breed">
+        Breed: <input id="breed" name="breed" type="text">
+    </label>
+    <br>
+    <label for="color">
+        Color: <input id="color" name="color" type="text">
+    </label>
+    <br>
+    <label for="age">
+        Age: <input id="age" name="age" type="number">
+    </label>
+    <br>
+    <input type="submit" value="Create a Cat">
+</form>
+<br>
+<a href="/">Back to Home</a>
+</body>
+</html>
