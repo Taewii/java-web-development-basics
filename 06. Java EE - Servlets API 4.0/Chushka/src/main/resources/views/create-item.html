@@ -1,0 +1,28 @@
+<h1 class="title">Create Product</h1>
+<hr>
+
+<form action="/products/create" method="POST">
+    <label for="name">
+        <span>Name:</span>
+        <input id="name" name="name" type="text">
+    </label>
+    <label for="description">
+        <span>Description:</span>
+        <textarea cols="30" id="description" name="description" rows="5"></textarea>
+    </label>
+    <label for="type">
+        <span>Type:</span>
+        <select id="type" name="type">
+            <option value="food">Food</option>
+            <option value="domestic">Domestic</option>
+            <option value="health">Health</option>
+            <option value="cosmetic">Cosmetic</option>
+            <option value="other">Other</option>
+        </select>
+    </label>
+
+    <input class="btn" type="submit" value="Create Product">
+</form>
+
+<hr>
+<a href="/">Back to Home Page</a>

@@ -1,30 +1,25 @@
-package domain.entities;
+package chushka.domain.models;
 
-import javax.persistence.*;
+import chushka.domain.entities.enums.Type;
 
-@Entity
-@Table(name = "users")
-public class Product {
+public class ProductServiceModel {
 
-    private long id;
+    private String id;
     private String name;
     private String description;
-    private String type;
+    private Type type;
 
-    public Product() {
+    public ProductServiceModel() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    @Column
     public String getName() {
         return this.name;
     }
@@ -33,7 +28,6 @@ public class Product {
         this.name = name;
     }
 
-    @Column
     public String getDescription() {
         return this.description;
     }
@@ -42,12 +36,11 @@ public class Product {
         this.description = description;
     }
 
-    @Column
-    public String getType() {
+    public Type getType() {
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 }
