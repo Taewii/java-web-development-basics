@@ -2,30 +2,20 @@ package chushka.repositories;
 
 import chushka.domain.entities.Product;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Stateless
 public class ProductRepositoryImpl implements ProductRepository {
 
-    // cant seem to get it working with @PersistenceContext
-    // persistence.xml -> transaction-type="RESOURCE_LOCAL"
-    // class needs to be @Stateless
-    // @PersistenceContext(unitName = "chushka")
+    @PersistenceContext(unitName = "chushka")
     private EntityManager manager;
-
-    public ProductRepositoryImpl() {
-        this.manager = Persistence
-                .createEntityManagerFactory("chushka")
-                .createEntityManager();
-    }
 
     @Override
     public Product save(Product entity) {
-        this.manager.getTransaction().begin();
         this.manager.persist(entity);
-        this.manager.getTransaction().commit();
-
         return entity;
     }
 
