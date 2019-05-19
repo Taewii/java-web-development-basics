@@ -2,19 +2,18 @@ package chushka.repositories;
 
 import chushka.domain.entities.Product;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.util.List;
 
 public class ProductRepositoryImpl implements ProductRepository {
 
+    // cant seem to get it working with @PersistenceContext
     // persistence.xml -> transaction-type="RESOURCE_LOCAL"
     // class needs to be @Stateless
     // @PersistenceContext(unitName = "chushka")
     private EntityManager manager;
 
-    @Inject
     public ProductRepositoryImpl() {
         this.manager = Persistence
                 .createEntityManagerFactory("chushka")
@@ -32,13 +31,13 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
-        return this.manager.createQuery("SELECT p FROM Product p", Product.class).getResultList();
+        return this.manager.createQuery("SELECT p FROM products p", Product.class).getResultList();
     }
 
     @Override
     public Product findByName(String name) {
         return this.manager
-                .createQuery("SELECT p FROM Product p WHERE p.name = :name", Product.class)
+                .createQuery("SELECT p FROM products p WHERE p.name = :name", Product.class)
                 .setParameter("name", name)
                 .getSingleResult();
     }

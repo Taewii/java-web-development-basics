@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/")
+@WebServlet("")
 public class HomeServlet extends HttpServlet {
 
     private static final String BASE_HTML = "/views/base.html";

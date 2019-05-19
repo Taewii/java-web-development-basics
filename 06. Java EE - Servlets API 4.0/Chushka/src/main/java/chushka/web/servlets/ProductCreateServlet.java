@@ -31,6 +31,8 @@ public class ProductCreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String baseHtml = this.htmlReader.readHtml(BASE_HTML);
         String template = this.htmlReader.readHtml(CREATE_PRODUCT_HTML_PATH);
+
+        template = template.replace("{{options}}", Type.getTypesAsHtmlOptions());
         baseHtml = baseHtml.replace("{{body}}", template);
 
         resp.getWriter().println(baseHtml);

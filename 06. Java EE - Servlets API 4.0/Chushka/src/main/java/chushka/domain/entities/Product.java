@@ -8,7 +8,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "products")
 @Table(name = "products")
 public class Product extends BaseEntity {
 
@@ -25,7 +25,7 @@ public class Product extends BaseEntity {
         this.type = type;
     }
 
-    @Column
+    @Column(nullable = false, unique = true)
     public String getName() {
         return this.name;
     }
