@@ -18,7 +18,7 @@
         <jsp:doBody/>
     </div>
 
-    <footer class="lead text-center">
+    <footer class="footer-copyright text-center">
         &copy; CopyRight Java Web Team 2019. All rights reserved.
     </footer>
 </div>

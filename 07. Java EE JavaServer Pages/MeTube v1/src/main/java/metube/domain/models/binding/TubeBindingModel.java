@@ -1,44 +1,26 @@
 package metube.domain.models.binding;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class TubeBindingModel {
 
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String description;
+
+    @Pattern(regexp = "https://www.youtube.com/watch\\?v=[A-Za-z0-9-]{11}")
     private String youtubeLink;
+
+    @NotBlank
     private String uploader;
-
-    public TubeBindingModel() {
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getYoutubeLink() {
-        return this.youtubeLink;
-    }
-
-    public void setYoutubeLink(String youtubeLink) {
-        this.youtubeLink = youtubeLink;
-    }
-
-    public String getUploader() {
-        return this.uploader;
-    }
-
-    public void setUploader(String uploader) {
-        this.uploader = uploader;
-    }
 }

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/tube/create")
+import static metube.web.WebConstants.*;
+
+@WebServlet(URL_TUBE_CREATE)
 public class TubeCreateServlet extends HttpServlet {
 
     private final TubeService tubeService;
@@ -23,19 +25,13 @@ public class TubeCreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/templates/tube-create.jsp").forward(req, resp);
+        req.getRequestDispatcher(JSP_TUBE_CREATE).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        TubeBindingModel tube = new TubeBindingModel();
-
-        tube.setTitle(req.getParameter("title"));
-        tube.setDescription(req.getParameter("description"));
-        tube.setYoutubeLink(req.getParameter("youtube-link"));
-        tube.setUploader(req.getParameter("uploader"));
-
+        TubeBindingModel tube = (TubeBindingModel) req.getAttribute(ATTRIBUTE_BINDING_MODEL);
         this.tubeService.save(tube);
-        resp.sendRedirect(String.format("/tube/details?title=%s", tube.getTitle()));
+        resp.sendRedirect(URL_TUBE_DETAILS_ATR_TITLE + tube.getTitle());
     }
 }

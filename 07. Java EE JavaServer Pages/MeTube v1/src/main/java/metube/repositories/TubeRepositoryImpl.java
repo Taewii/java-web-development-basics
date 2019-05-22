@@ -1,11 +1,14 @@
 package metube.repositories;
 
 import metube.domain.entities.Tube;
+import metube.web.WebConstants;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class TubeRepositoryImpl implements TubeRepository {
@@ -22,15 +25,20 @@ public class TubeRepositoryImpl implements TubeRepository {
     @Override
     public List<Tube> findAll() {
         return this.manager
-                .createQuery("SELECT t FROM tubes t", Tube.class)
+                .createNamedQuery("Tube.findAll", Tube.class)
                 .getResultList();
+
     }
 
     @Override
-    public Tube findByTitle(String title) {
-        return this.manager
-                .createQuery("SELECT t FROM tubes t WHERE t.title = :title", Tube.class)
-                .setParameter("title", title)
-                .getSingleResult();
+    public Optional<Tube> findByTitle(String title) {
+        try {
+            return Optional.of(this.manager
+                    .createNamedQuery("Tube.findByTitle", Tube.class)
+                    .setParameter(WebConstants.ATTRIBUTE_TITLE, title)
+                    .getSingleResult());
+        } catch (NoResultException nre) {
+            return Optional.empty();
+        }
     }
 }

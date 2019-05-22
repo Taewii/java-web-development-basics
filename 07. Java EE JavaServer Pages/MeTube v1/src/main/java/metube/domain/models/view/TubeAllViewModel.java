@@ -1,17 +1,13 @@
 package metube.domain.models.view;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class TubeAllViewModel {
 
     private String title;
-
-    public TubeAllViewModel() {
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }

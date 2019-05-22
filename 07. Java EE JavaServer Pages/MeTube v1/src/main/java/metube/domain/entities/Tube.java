@@ -1,52 +1,31 @@
 package metube.domain.entities;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity(name = "tubes")
 @Table(name = "tubes")
+@NamedQueries({
+        @NamedQuery(name = "Tube.findAll", query = "SELECT t FROM tubes t"),
+        @NamedQuery(name = "Tube.findByTitle", query = "SELECT t FROM tubes t WHERE t.title = :title")
+})
 public class Tube extends BaseEntity {
 
+    @Column(nullable = false, unique = true)
     private String title;
-    private String description;
-    private String youtubeLink;
-    private String uploader;
-
-    public Tube() {
-    }
 
     @Column(nullable = false)
-    public String getTitle() {
-        return this.title;
-    }
+    private String description;
 
-    public void setTitle(String name) {
-        this.title = name;
-    }
+    @Column(nullable = false)
+    private String youtubeLink;
 
-    @Column
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Column
-    public String getYoutubeLink() {
-        return this.youtubeLink;
-    }
-
-    public void setYoutubeLink(String youtubeLink) {
-        this.youtubeLink = youtubeLink;
-    }
-
-    @Column
-    public String getUploader() {
-        return this.uploader;
-    }
-
-    public void setUploader(String uploader) {
-        this.uploader = uploader;
-    }
+    @Column(nullable = false)
+    private String uploader;
 }
