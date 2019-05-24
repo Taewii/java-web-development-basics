@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(WebConstants.INDEX_URL)
+@WebServlet("") // css wont load if it's "/"
 public class IndexServlet extends HttpServlet {
 
     @Override

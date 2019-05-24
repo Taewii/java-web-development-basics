@@ -1,13 +1,21 @@
 package metube.services;
 
 import metube.domain.entities.Tube;
+import metube.domain.entities.User;
 import metube.domain.models.binding.UploadTubeBindingModel;
+import metube.domain.models.view.TubeDetailsViewModel;
+import metube.domain.models.view.TubeHomeViewModel;
+import metube.domain.models.view.TubeProfileViewModel;
 import metube.repositories.TubeRepository;
 import org.modelmapper.ModelMapper;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Stateless
 public class TubeServiceImpl implements TubeService {
@@ -26,8 +34,42 @@ public class TubeServiceImpl implements TubeService {
     }
 
     @Override
-    public void save(UploadTubeBindingModel tube) {
-        // TODO: 23.5.2019 г. validate
-        this.tubeRepository.save(this.mapper.map(tube, Tube.class));
+    public void upload(UploadTubeBindingModel tube, User user) {
+        Set<ConstraintViolation<UploadTubeBindingModel>> violations = this.validator.validate(tube);
+        String message;
+        if (!violations.isEmpty()) {
+            message = violations.stream().map(v -> String.format("%s value '%s' %s", v.getPropertyPath(),
+                    v.getInvalidValue(), v.getMessage()))
+                    .collect(Collectors.joining(", "));
+            throw new IllegalArgumentException(message);
+        }
+
+        Tube entity = this.mapper.map(tube, Tube.class);
+        user.addTube(entity);
+        this.tubeRepository.update(entity);
+    }
+
+    @Override
+    public List<TubeHomeViewModel> findAll() {
+        return this.tubeRepository.findAll();
+    }
+
+    @Override
+    public TubeDetailsViewModel findById(String id) {
+        return this.tubeRepository.findViewModelById(id);
+    }
+
+    @Override
+    public void incrementViews(String id) {
+        Tube tube = this.tubeRepository.findById(id);
+        if (tube != null) {
+            tube.incrementViews();
+            this.tubeRepository.update(tube);
+        }
+    }
+
+    @Override
+    public List<TubeProfileViewModel> findByAuthorId(String id) {
+        return this.tubeRepository.findByAuthorId(id);
     }
 }

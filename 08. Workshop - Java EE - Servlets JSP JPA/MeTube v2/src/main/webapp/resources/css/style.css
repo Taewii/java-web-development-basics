@@ -15,3 +15,7 @@
 iframe {
     overflow: hidden;
 }
+
+.thumbnail {
+    height: 200px;
+}

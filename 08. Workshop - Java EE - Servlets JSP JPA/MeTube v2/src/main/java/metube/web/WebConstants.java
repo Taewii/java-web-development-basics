@@ -5,10 +5,10 @@ public final class WebConstants {
     private static final String VIEWS_PATH = "/WEB-INF/views";
     private static final String JSP_EXTENSION = ".jsp";
 
-    public static final String INDEX_URL = "";
+    public static final String INDEX_URL = "/";
     public static final String REGISTER_URL = "/register";
     public static final String LOGIN_URL = "/login";
-    public static final String LOGOUT_URL = "/login";
+    public static final String LOGOUT_URL = "/logout";
     public static final String DETAILS_URL = "/details";
     public static final String HOME_URL = "/home";
     public static final String PROFILE_URL = "/profile";

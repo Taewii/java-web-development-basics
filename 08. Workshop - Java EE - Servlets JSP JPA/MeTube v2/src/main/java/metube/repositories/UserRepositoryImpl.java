@@ -1,13 +1,12 @@
 package metube.repositories;
 
+import metube.domain.entities.Tube;
 import metube.domain.entities.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import java.util.List;
-import java.util.Optional;
 
 @Stateless
 public class UserRepositoryImpl implements UserRepository {
@@ -22,8 +21,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> findAll() {
-        throw new UnsupportedOperationException();
+    public Tube update(Tube entity) {
+        return this.manager.merge(entity);
+    }
+
+    @Override
+    public User findById(String id) {
+        return this.manager
+                .createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override

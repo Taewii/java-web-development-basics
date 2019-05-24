@@ -31,4 +31,8 @@ public class Tube extends BaseEntity {
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "uploader_id", referencedColumnName = "id")
     private User uploader;
+
+    public void incrementViews() {
+        this.views++;
+    }
 }

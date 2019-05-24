@@ -1,5 +1,6 @@
 package metube.web.servlets.tube;
 
+import metube.domain.entities.User;
 import metube.domain.models.binding.UploadTubeBindingModel;
 import metube.services.TubeService;
 import metube.web.WebConstants;
@@ -34,14 +35,14 @@ public class UploadServlet extends HttpServlet {
         String youtubeId = req.getParameter("youtube-link");
         String description = req.getParameter("description");
 
+        User user = (User) req.getSession().getAttribute("user");
         UploadTubeBindingModel tube = new UploadTubeBindingModel();
         tube.setTitle(title);
         tube.setAuthor(author);
         tube.setYoutubeId(youtubeId);
         tube.setDescription(description);
 
-        // TODO: 23.5.2019 г. find user and add
-        this.tubeService.save(tube);
+        this.tubeService.upload(tube, user);
         resp.sendRedirect(WebConstants.HOME_URL);
     }
 }

@@ -1,10 +1,12 @@
 package metube.repositories;
 
-import java.util.List;
+import metube.domain.entities.Tube;
 
 public interface GenericRepository<E, K> {
 
     E save(E entity);
 
-    List<E> findAll();
+    Tube update(Tube entity);
+
+    E findById(K id);
 }
