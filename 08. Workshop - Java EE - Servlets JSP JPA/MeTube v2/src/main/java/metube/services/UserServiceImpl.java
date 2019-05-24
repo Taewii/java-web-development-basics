@@ -55,15 +55,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User find(String username, String password) {
         User user = this.userRepository.findByUsername(username);
+        boolean validatePassword = false;
 
         try {
-            boolean validatePassword = PasswordHash.validatePassword(password, user.getPassword());
-
-            if (validatePassword) return user;
+            validatePassword = PasswordHash.validatePassword(password, user.getPassword());
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return validatePassword ? user : null;
     }
 }
