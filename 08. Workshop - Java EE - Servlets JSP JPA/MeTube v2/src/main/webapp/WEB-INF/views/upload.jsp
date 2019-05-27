@@ -34,7 +34,7 @@
                         <div class="control-group">
                             <label class="control-label h3 mb-2" for="youtube-link">Youtube Link</label>
                             <div class="controls">
-                                <input type="text" id="youtube-link" name="youtube-link" placeholder=""
+                                <input type="text" id="youtube-link" name="youtubeId" placeholder=""
                                        class="input-xlarge">
                             </div>
                         </div>

@@ -15,13 +15,6 @@ import java.io.IOException;
 @WebServlet(WebConstants.LOGIN_URL)
 public class LoginServlet extends HttpServlet {
 
-    private final UserService userService;
-
-    @Inject
-    public LoginServlet(UserService userService) {
-        this.userService = userService;
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher(WebConstants.LOGIN_VIEW_JSP).forward(req, resp);
@@ -29,10 +22,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-
-        User user = this.userService.find(username, password);
+        User user = (User) req.getAttribute("model");
 
         if (user == null) {
             throw new IllegalArgumentException("Invalid credentials");

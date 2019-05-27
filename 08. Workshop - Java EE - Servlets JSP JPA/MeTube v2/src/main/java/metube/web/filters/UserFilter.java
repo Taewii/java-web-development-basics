@@ -17,10 +17,12 @@ public class UserFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
-            chain.doFilter(req, res);
-        } else {
+
+        if (FilterUtil.isAuthenticated(session)) {
             res.sendRedirect(WebConstants.HOME_URL);
+            return;
         }
+
+        chain.doFilter(req, res);
     }
 }

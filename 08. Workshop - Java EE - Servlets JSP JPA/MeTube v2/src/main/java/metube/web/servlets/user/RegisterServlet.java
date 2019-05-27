@@ -29,18 +29,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
-        String email = req.getParameter("email");
-
-        RegisterBindingModel user = new RegisterBindingModel();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setConfirmPassword(confirmPassword);
-        user.setEmail(email);
-
-        this.userService.save(user);
+        this.userService.save((RegisterBindingModel) req.getAttribute("model"));
         resp.sendRedirect(WebConstants.LOGIN_URL);
     }
 }

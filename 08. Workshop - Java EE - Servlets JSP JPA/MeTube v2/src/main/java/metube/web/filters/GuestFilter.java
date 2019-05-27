@@ -17,11 +17,13 @@ public class GuestFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
-        if (session != null && session.getAttribute("user") != null) {
-            req.setAttribute("user", session.getAttribute("user"));
-            chain.doFilter(req, res);
-        } else {
+
+        if (FilterUtil.isGuest(session)) {
             res.sendRedirect(WebConstants.INDEX_URL);
+            return;
         }
+
+        req.setAttribute("user", session.getAttribute("user"));
+        chain.doFilter(req, res);
     }
 }

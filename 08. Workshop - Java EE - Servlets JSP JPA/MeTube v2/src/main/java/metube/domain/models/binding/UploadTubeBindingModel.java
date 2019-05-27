@@ -28,14 +28,8 @@ public class UploadTubeBindingModel {
         this.author = author;
     }
 
-    public void setYoutubeId(String youtubeLink) {
-        String videoId = youtubeLink.split("v=")[1];
-        int ampersandPosition = videoId.indexOf('&');
-        if (ampersandPosition != -1) {
-            videoId = videoId.substring(0, ampersandPosition);
-        }
-
-        this.youtubeId = videoId;
+    public void setYoutubeId(String youtubeId) {
+       this.youtubeId = youtubeId;
     }
 
     public void setDescription(String description) {

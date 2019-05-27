@@ -2,6 +2,8 @@ package metube.web;
 
 public final class WebConstants {
 
+    public static final String HTTP_METHOD_POST = "POST";
+
     public static final String INDEX_URL = "/";
     public static final String REGISTER_URL = "/register";
     public static final String LOGIN_URL = "/login";
