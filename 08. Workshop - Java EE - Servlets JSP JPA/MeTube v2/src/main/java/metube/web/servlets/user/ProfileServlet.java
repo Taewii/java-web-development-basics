@@ -26,8 +26,8 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("user");
-        List<TubeProfileViewModel> tubes = this.tubeService.findByAuthorId(user.getId());
+        String id = String.valueOf(req.getSession().getAttribute("user_id"));
+        List<TubeProfileViewModel> tubes = this.tubeService.findByAuthorId(id);
         req.setAttribute("tubes", tubes);
 
         req.getRequestDispatcher(WebConstants.PROFILE_VIEW_JSP).forward(req, resp);

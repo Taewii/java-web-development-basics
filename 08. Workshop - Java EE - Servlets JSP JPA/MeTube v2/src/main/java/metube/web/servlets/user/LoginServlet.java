@@ -1,10 +1,8 @@
 package metube.web.servlets.user;
 
 import metube.domain.entities.User;
-import metube.services.UserService;
 import metube.web.WebConstants;
 
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +26,7 @@ public class LoginServlet extends HttpServlet {
             throw new IllegalArgumentException("Invalid credentials");
         } else {
             req.getSession().setAttribute("user", user);
+            req.getSession().setAttribute("user_id", user.getId());
         }
 
         resp.sendRedirect(WebConstants.HOME_URL);

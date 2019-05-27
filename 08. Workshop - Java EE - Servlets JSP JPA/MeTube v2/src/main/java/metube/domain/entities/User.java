@@ -29,16 +29,6 @@ public class User extends BaseEntity {
             targetEntity = Tube.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            fetch = FetchType.EAGER) // TODO: 24.5.2019 г. has to be lazy. figure it out
+            fetch = FetchType.LAZY)
     private List<Tube> tubes = new ArrayList<>();
-
-    public void addTube(Tube tube) {
-        tube.setUploader(this);
-        this.tubes.add(tube);
-    }
-
-    public void removeTube(Tube tube) {
-        this.tubes.remove(tube);
-        tube.setUploader(null);
-    }
 }

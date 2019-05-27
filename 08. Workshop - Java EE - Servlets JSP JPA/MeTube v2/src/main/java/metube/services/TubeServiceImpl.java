@@ -34,7 +34,7 @@ public class TubeServiceImpl implements TubeService {
     }
 
     @Override
-    public void upload(UploadTubeBindingModel tube, User user) {
+    public void upload(UploadTubeBindingModel tube) {
         Set<ConstraintViolation<UploadTubeBindingModel>> violations = this.validator.validate(tube);
         String message;
         if (!violations.isEmpty()) {
@@ -45,7 +45,6 @@ public class TubeServiceImpl implements TubeService {
         }
 
         Tube entity = this.mapper.map(tube, Tube.class);
-        user.addTube(entity);
         this.tubeRepository.update(entity);
     }
 

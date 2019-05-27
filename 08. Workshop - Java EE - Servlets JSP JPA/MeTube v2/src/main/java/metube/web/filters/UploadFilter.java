@@ -1,6 +1,7 @@
 package metube.web.filters;
 
 import metube.domain.models.binding.UploadTubeBindingModel;
+import metube.domain.models.binding.UserIdBindingModel;
 import metube.web.WebConstants;
 
 import javax.servlet.*;
@@ -18,6 +19,11 @@ public class UploadFilter implements Filter {
         if (req.getMethod().equalsIgnoreCase(WebConstants.HTTP_METHOD_POST)) {
             UploadTubeBindingModel tube = FilterUtil.mapParamsToEntity(req, UploadTubeBindingModel.class);
             tube.setYoutubeId(FilterUtil.extractIdFromYoutubeLink(tube.getYoutubeId()));
+
+            UserIdBindingModel user = new UserIdBindingModel();
+            user.setId(String.valueOf(req.getSession().getAttribute("user_id")));
+
+            tube.setUploader(user);
             request.setAttribute("model", tube);
         }
 

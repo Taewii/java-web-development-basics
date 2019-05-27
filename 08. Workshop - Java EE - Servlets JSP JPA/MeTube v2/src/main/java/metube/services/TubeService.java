@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TubeService {
 
-    void upload(UploadTubeBindingModel tube, User user);
+    void upload(UploadTubeBindingModel tube);
 
     List<TubeHomeViewModel> findAll();
 

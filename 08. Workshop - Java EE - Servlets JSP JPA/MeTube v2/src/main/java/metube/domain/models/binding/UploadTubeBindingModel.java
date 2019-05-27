@@ -2,10 +2,13 @@ package metube.domain.models.binding;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class UploadTubeBindingModel {
 
@@ -20,19 +23,6 @@ public class UploadTubeBindingModel {
 
     private String description;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setYoutubeId(String youtubeId) {
-       this.youtubeId = youtubeId;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    @NotNull
+    private UserIdBindingModel uploader;
 }

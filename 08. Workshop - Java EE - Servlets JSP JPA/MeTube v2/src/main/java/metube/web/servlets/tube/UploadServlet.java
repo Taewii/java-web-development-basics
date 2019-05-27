@@ -30,10 +30,9 @@ public class UploadServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        User user = (User) req.getSession().getAttribute("user");
         UploadTubeBindingModel tube = (UploadTubeBindingModel) req.getAttribute("model");
 
-        this.tubeService.upload(tube, user);
+        this.tubeService.upload(tube);
         resp.sendRedirect(WebConstants.HOME_URL);
     }
 }

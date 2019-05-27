@@ -28,6 +28,7 @@ public final class FilterUtil {
                 String value = req.getParameter(fieldName);
 
                 if (value != null) {
+                    // TODO: 27.5.2019 г. parse value to desired type
                     field.set(instance, value);
                 }
             }
