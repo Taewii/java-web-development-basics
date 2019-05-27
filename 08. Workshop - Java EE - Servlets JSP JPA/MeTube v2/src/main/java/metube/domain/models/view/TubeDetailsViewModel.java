@@ -15,5 +15,5 @@ public class TubeDetailsViewModel {
     private String author;
     private String youtubeId;
     private String description;
-    private int views;
+    private long views;
 }

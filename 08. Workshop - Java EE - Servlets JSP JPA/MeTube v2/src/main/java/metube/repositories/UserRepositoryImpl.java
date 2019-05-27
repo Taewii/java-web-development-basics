@@ -44,4 +44,11 @@ public class UserRepositoryImpl implements UserRepository {
             return null;
         }
     }
+
+    @Override
+    public boolean isFirstUser() {
+        return this.manager
+                .createQuery("SELECT (COUNT (u.id) > 0) FROM User u", Boolean.class)
+                .getSingleResult();
+    }
 }

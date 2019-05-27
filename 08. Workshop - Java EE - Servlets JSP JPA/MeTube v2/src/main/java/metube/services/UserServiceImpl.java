@@ -1,6 +1,7 @@
 package metube.services;
 
 import metube.domain.entities.User;
+import metube.domain.enums.UserRole;
 import metube.domain.models.binding.RegisterBindingModel;
 import metube.repositories.UserRepository;
 import metube.util.PasswordHash;
@@ -17,14 +18,17 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserRoleService userRoleService;
     private final ModelMapper mapper;
     private final Validator validator;
 
     @Inject
     public UserServiceImpl(UserRepository userRepository,
+                           UserRoleService userRoleService,
                            ModelMapper mapper,
                            Validator validator) {
         this.userRepository = userRepository;
+        this.userRoleService = userRoleService;
         this.mapper = mapper;
         this.validator = validator;
     }
@@ -49,7 +53,14 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
 
-        this.userRepository.save(this.mapper.map(user, User.class));
+        User entity = this.mapper.map(user, User.class);
+
+        if (this.userRepository.isFirstUser()) {
+            entity.addRole(this.userRoleService.findByType(UserRole.ADMIN));
+        }
+
+        entity.addRole(this.userRoleService.findByType(UserRole.REGULAR));
+        this.userRepository.save(entity);
     }
 
     @Override

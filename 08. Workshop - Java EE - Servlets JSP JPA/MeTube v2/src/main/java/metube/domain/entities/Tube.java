@@ -3,6 +3,8 @@ package metube.domain.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import metube.domain.enums.TubeStatus;
+import metube.domain.enums.TubeStatusConverter;
 
 import javax.persistence.*;
 
@@ -26,11 +28,15 @@ public class Tube extends BaseEntity {
     private String youtubeId;
 
     @Column
-    private int views;
+    private long views;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "uploader_id", referencedColumnName = "id")
     private User uploader;
+
+    @Column
+    @Convert(converter = TubeStatusConverter.class)
+    private TubeStatus status;
 
     public void incrementViews() {
         this.views++;
