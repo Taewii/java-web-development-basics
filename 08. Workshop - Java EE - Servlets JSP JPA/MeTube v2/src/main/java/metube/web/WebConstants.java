@@ -15,14 +15,13 @@ public final class WebConstants {
 
     private static final String VIEWS_PATH = "/WEB-INF/views";
     private static final String JSP_EXTENSION = ".jsp";
-    private static final String JSP_INDEX_URL = "/index";
-
     public static final String REGISTER_VIEW_JSP = VIEWS_PATH + REGISTER_URL + JSP_EXTENSION;
     public static final String LOGIN_VIEW_JSP = VIEWS_PATH + LOGIN_URL + JSP_EXTENSION;
     public static final String DETAILS_VIEW_JSP = VIEWS_PATH + DETAILS_URL + JSP_EXTENSION;
     public static final String HOME_VIEW_JSP = VIEWS_PATH + HOME_URL + JSP_EXTENSION;
     public static final String PROFILE_VIEW_JSP = VIEWS_PATH + PROFILE_URL + JSP_EXTENSION;
     public static final String UPLOAD_VIEW_JSP = VIEWS_PATH + UPLOAD_URL + JSP_EXTENSION;
+    private static final String JSP_INDEX_URL = "/index";
     public static final String INDEX_VIEW_JSP = VIEWS_PATH + JSP_INDEX_URL + JSP_EXTENSION;
 
     private WebConstants() {

@@ -1,6 +1,5 @@
 package metube.services;
 
-import metube.domain.entities.User;
 import metube.domain.models.binding.UploadTubeBindingModel;
 import metube.domain.models.view.TubeDetailsViewModel;
 import metube.domain.models.view.TubeHomeViewModel;

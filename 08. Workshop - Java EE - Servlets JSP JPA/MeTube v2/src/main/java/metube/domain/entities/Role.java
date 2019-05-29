@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import metube.domain.enums.UserRole;
-import metube.domain.enums.UserRoleConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,6 +29,12 @@ public class Role {
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 }

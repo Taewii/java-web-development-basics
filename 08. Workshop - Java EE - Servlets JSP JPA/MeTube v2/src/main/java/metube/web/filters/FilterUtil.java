@@ -50,6 +50,6 @@ public final class FilterUtil {
             videoId = videoId.substring(0, ampersandPosition);
         }
 
-       return videoId;
+        return videoId;
     }
 }

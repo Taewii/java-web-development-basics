@@ -54,13 +54,12 @@ public class UserServiceImpl implements UserService {
         }
 
         User entity = this.mapper.map(user, User.class);
-
-        if (this.userRepository.isFirstUser()) {
+        if (this.userRepository.isTableEmpty()) {
             entity.addRole(this.userRoleService.findByType(UserRole.ADMIN));
         }
 
         entity.addRole(this.userRoleService.findByType(UserRole.REGULAR));
-        this.userRepository.save(entity);
+        this.userRepository.update(entity);
     }
 
     @Override

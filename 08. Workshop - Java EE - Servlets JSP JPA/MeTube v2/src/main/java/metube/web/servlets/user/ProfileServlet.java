@@ -1,6 +1,5 @@
 package metube.web.servlets.user;
 
-import metube.domain.entities.User;
 import metube.domain.models.view.TubeProfileViewModel;
 import metube.services.TubeService;
 import metube.web.WebConstants;

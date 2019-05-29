@@ -1,6 +1,5 @@
 package metube.repositories;
 
-import metube.domain.entities.Tube;
 import metube.domain.entities.User;
 
 import javax.ejb.Stateless;
@@ -21,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Tube update(Tube entity) {
+    public User update(User entity) {
         return this.manager.merge(entity);
     }
 
@@ -46,9 +45,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean isFirstUser() {
+    public boolean isTableEmpty() {
         return this.manager
-                .createQuery("SELECT (COUNT (u.id) > 0) FROM User u", Boolean.class)
-                .getSingleResult();
+                .createQuery("SELECT u FROM User u", User.class)
+                .setMaxResults(1)
+                .getResultList()
+                .isEmpty();
     }
 }
