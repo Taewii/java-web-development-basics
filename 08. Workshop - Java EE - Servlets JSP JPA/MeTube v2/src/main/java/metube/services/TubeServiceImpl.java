@@ -3,7 +3,6 @@ package metube.services;
 import metube.domain.entities.Tube;
 import metube.domain.enums.TubeStatus;
 import metube.domain.models.binding.UploadTubeBindingModel;
-import metube.domain.models.view.TubeHomeViewModel;
 import metube.domain.models.view.TubeProfileViewModel;
 import metube.repositories.TubeRepository;
 import org.modelmapper.ModelMapper;
@@ -50,11 +49,6 @@ public class TubeServiceImpl implements TubeService {
     @Override
     public void update(Tube tube) {
         this.tubeRepository.update(tube);
-    }
-
-    @Override
-    public List<TubeHomeViewModel> findAll() {
-        return this.tubeRepository.findAll();
     }
 
     @Override

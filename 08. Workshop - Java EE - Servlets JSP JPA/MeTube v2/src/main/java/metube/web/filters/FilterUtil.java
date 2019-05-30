@@ -6,21 +6,21 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
-public final class FilterUtil {
+final class FilterUtil {
 
-    public static boolean isAdmin(HttpSession session) {
+    static boolean isAdmin(HttpSession session) {
         return isAuthenticated(session) && (boolean) session.getAttribute("isAdmin");
     }
 
-    public static boolean isGuest(HttpSession session) {
+    static boolean isGuest(HttpSession session) {
         return !isAuthenticated(session);
     }
 
-    public static boolean isAuthenticated(HttpSession session) {
+    static boolean isAuthenticated(HttpSession session) {
         return session != null && session.getAttribute("user") != null;
     }
 
-    public static <T> T mapParamsToEntity(HttpServletRequest req, Class<T> clazz) {
+    static <T> T mapParamsToEntity(HttpServletRequest req, Class<T> clazz) {
         try {
             Constructor<T> constructor = clazz.getDeclaredConstructor();
             constructor.setAccessible(true);
@@ -32,8 +32,7 @@ public final class FilterUtil {
                 String value = req.getParameter(fieldName);
 
                 if (value != null) {
-                    // TODO: 27.5.2019 г. parse value to desired type
-                    field.set(instance, value);
+                    field.set(instance, parseValue(field.getType(), value));
                 }
             }
 
@@ -47,7 +46,27 @@ public final class FilterUtil {
         return null;
     }
 
-    public static String extractIdFromYoutubeLink(String youtubeLink) {
+    private static Object parseValue(Class<?> type, String value) {
+        if (type == null || value == null) {
+            return null;
+        }
+
+        if (type.isAssignableFrom(int.class) || type.isAssignableFrom(Integer.class)) {
+            return Integer.valueOf(value);
+        } else if (type.isAssignableFrom(long.class) || type.isAssignableFrom(Long.class)) {
+            return Long.valueOf(value);
+        } else if (type.isAssignableFrom(float.class) || type.isAssignableFrom(Float.class)) {
+            return Float.valueOf(value);
+        } else if (type.isAssignableFrom(double.class) || type.isAssignableFrom(Double.class)) {
+            return Double.valueOf(value);
+        } else if (type.isAssignableFrom(boolean.class) || type.isAssignableFrom(Boolean.class)) {
+            return Boolean.valueOf(value);
+        } else {
+            return value;
+        }
+    }
+
+    static String extractIdFromYoutubeLink(String youtubeLink) {
         String videoId = youtubeLink.split("v=")[1];
         int ampersandPosition = videoId.indexOf('&');
         if (ampersandPosition != -1) {

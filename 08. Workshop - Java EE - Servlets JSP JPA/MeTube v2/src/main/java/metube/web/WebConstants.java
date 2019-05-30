@@ -3,18 +3,17 @@ package metube.web;
 public final class WebConstants {
 
     public static final String HTTP_METHOD_POST = "POST";
-
-    public static final String TUBE = "/tube";
     public static final String INDEX_URL = "/";
     public static final String REGISTER_URL = "/register";
     public static final String LOGIN_URL = "/login";
     public static final String LOGOUT_URL = "/logout";
-    public static final String DETAILS_URL = "/details";
     public static final String HOME_URL = "/home";
     public static final String PROFILE_URL = "/profile";
     public static final String UPLOAD_URL = "/upload";
-    public static final String ADMIN_URL = "/admin";
-    public static final String PENDING_URL = "/pending";
+    private static final String TUBE = "/tube";
+    private static final String ADMIN_URL = "/admin";
+    private static final String DETAILS_URL = "/details";
+    private static final String PENDING_URL = "/pending";
     public static final String ADMIN_PENDING_URL = ADMIN_URL + TUBE + PENDING_URL;
 
     private static final String VIEWS_PATH = "/WEB-INF/views";
