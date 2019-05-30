@@ -25,10 +25,10 @@
             <% for (TubeHomeViewModel tube : tubes) { %>
             <div class="p-2 text-center">
                 <a href="/details/<%= tube.getId()%>">
-                    <img class="thumbnail" src="https://img.youtube.com/vi/<%= tube.getYoutubeLink()%>/default.jpg" alt="thumbnail">
+                    <img class="thumbnail" src="https://img.youtube.com/vi/<%= tube.getYoutubeId()%>/default.jpg" alt="thumbnail">
                 </a>
                 <p><%= tube.getTitle()%></p>
-                <p><%= tube.getUploader()%></p>
+                <p><%= tube.getUploader().getUsername()%></p>
             </div>
             <% } %>
         </div>

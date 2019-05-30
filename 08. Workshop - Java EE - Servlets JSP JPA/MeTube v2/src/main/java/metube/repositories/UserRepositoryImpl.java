@@ -20,8 +20,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User update(User entity) {
-        return this.manager.merge(entity);
+    public void update(User entity) {
+        this.manager.merge(entity);
     }
 
     @Override

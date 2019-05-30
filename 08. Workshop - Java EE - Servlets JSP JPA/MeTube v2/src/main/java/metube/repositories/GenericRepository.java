@@ -4,7 +4,7 @@ public interface GenericRepository<E, K> {
 
     E save(E entity);
 
-    E update(E entity);
+    void update(E entity);
 
     E findById(K id);
 }

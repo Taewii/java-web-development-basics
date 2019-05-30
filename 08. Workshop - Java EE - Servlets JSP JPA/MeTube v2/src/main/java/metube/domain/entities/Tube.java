@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import metube.domain.enums.TubeStatus;
-import metube.domain.enums.TubeStatusConverter;
 
 import javax.persistence.*;
 
@@ -35,10 +34,16 @@ public class Tube extends BaseEntity {
     private User uploader;
 
     @Column
-    @Convert(converter = TubeStatusConverter.class)
+    @Enumerated(EnumType.STRING)
     private TubeStatus status;
 
     public void incrementViews() {
         this.views++;
+    }
+
+    public void changeStatus(TubeStatus status) {
+        if (status != null) {
+            this.status = status;
+        }
     }
 }

@@ -20,7 +20,7 @@ public class UserRoleRepositoryImpl implements UserRoleRepository {
     }
 
     @Override
-    public Role update(Role entity) {
+    public void update(Role entity) {
         throw new UnsupportedOperationException();
     }
 

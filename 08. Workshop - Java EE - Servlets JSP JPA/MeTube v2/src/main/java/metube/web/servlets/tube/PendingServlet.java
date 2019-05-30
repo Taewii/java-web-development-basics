@@ -1,6 +1,7 @@
 package metube.web.servlets.tube;
 
-import metube.domain.models.view.TubeProfileViewModel;
+import metube.domain.enums.TubeStatus;
+import metube.domain.models.view.TubePendingViewModel;
 import metube.services.TubeService;
 import metube.web.WebConstants;
 
@@ -25,8 +26,7 @@ public class PendingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = String.valueOf(req.getSession().getAttribute("user_id"));
-        List<TubeProfileViewModel> tubes = this.tubeService.findByAuthorId(id);
+        List<TubePendingViewModel> tubes = this.tubeService.findByTubeStatus(TubeStatus.PENDING, TubePendingViewModel.class);
         req.setAttribute("tubes", tubes);
 
         req.getRequestDispatcher(WebConstants.PENDING_VIEW_JSP).forward(req, resp);

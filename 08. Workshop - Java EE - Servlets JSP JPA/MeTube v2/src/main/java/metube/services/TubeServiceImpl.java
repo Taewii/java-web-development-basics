@@ -1,8 +1,8 @@
 package metube.services;
 
 import metube.domain.entities.Tube;
+import metube.domain.enums.TubeStatus;
 import metube.domain.models.binding.UploadTubeBindingModel;
-import metube.domain.models.view.TubeDetailsViewModel;
 import metube.domain.models.view.TubeHomeViewModel;
 import metube.domain.models.view.TubeProfileViewModel;
 import metube.repositories.TubeRepository;
@@ -48,13 +48,23 @@ public class TubeServiceImpl implements TubeService {
     }
 
     @Override
+    public void update(Tube tube) {
+        this.tubeRepository.update(tube);
+    }
+
+    @Override
     public List<TubeHomeViewModel> findAll() {
         return this.tubeRepository.findAll();
     }
 
     @Override
-    public TubeDetailsViewModel findById(String id) {
-        return this.tubeRepository.findViewModelById(id);
+    public Tube findById(String id) {
+        return this.tubeRepository.findById(id);
+    }
+
+    @Override
+    public <T> T findByIdViewModel(String id, Class<T> klass) {
+        return this.mapper.map(this.tubeRepository.findById(id), klass);
     }
 
     @Override
@@ -69,5 +79,13 @@ public class TubeServiceImpl implements TubeService {
     @Override
     public List<TubeProfileViewModel> findByAuthorId(String id) {
         return this.tubeRepository.findByAuthorId(id);
+    }
+
+    @Override
+    public <T> List<T> findByTubeStatus(TubeStatus status, Class<T> klass) {
+        return this.tubeRepository.findByTubeStatus(status)
+                .stream()
+                .map(tube -> this.mapper.map(tube, klass))
+                .collect(Collectors.toList());
     }
 }

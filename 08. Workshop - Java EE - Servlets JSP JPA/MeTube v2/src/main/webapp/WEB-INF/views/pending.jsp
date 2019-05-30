@@ -1,5 +1,5 @@
-<%@ page import="metube.domain.models.view.TubeProfileViewModel" %>
 <%@ page import="java.util.List" %>
+<%@ page import="metube.domain.models.view.TubePendingViewModel" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +7,7 @@
     <c:import url="templates/head.jsp"/>
 </head>
 
-<% List<TubeProfileViewModel> tubes = (List<TubeProfileViewModel>) request.getAttribute("tubes"); %>
+<% List<TubePendingViewModel> tubes = (List<TubePendingViewModel>) request.getAttribute("tubes"); %>
 
 <body>
 <div class="container-fluid">
@@ -31,14 +31,14 @@
                 </thead>
                 <tbody>
                 <% for (int i = 0; i < tubes.size(); i++) { %>
-                <% TubeProfileViewModel tube = tubes.get(i); %>
+                <% TubePendingViewModel tube = tubes.get(i); %>
                 <tr>
                     <td><%= i + 1%></td>
                     <td><%= tube.getTitle()%></td>
                     <td><%= tube.getAuthor()%></td>
                     <td>
-                        <a class="btn btn-info" href="/admin/tube/<%= tube.getId()%>/approve" role="button">Approve</a>
-                        <a class="btn btn-danger" href="/admin/tube/<%= tube.getId()%>/decline" role="button">Decline</a>
+                        <a class="btn btn-info" href="/admin/tube/approve/<%= tube.getId()%>" role="button">Approve</a>
+                        <a class="btn btn-danger" href="/admin/tube/decline/<%= tube.getId()%>" role="button">Decline</a>
                     </td>
                     <td><a href="/details/<%= tube.getId()%>">Details</a></td>
                 </tr>

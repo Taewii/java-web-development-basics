@@ -1,5 +1,6 @@
 package metube.web.servlets;
 
+import metube.domain.enums.TubeStatus;
 import metube.domain.models.view.TubeHomeViewModel;
 import metube.services.TubeService;
 import metube.web.WebConstants;
@@ -25,7 +26,7 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<TubeHomeViewModel> tubes = this.tubeService.findAll();
+        List<TubeHomeViewModel> tubes = this.tubeService.findByTubeStatus(TubeStatus.APPROVED, TubeHomeViewModel.class);
         req.setAttribute("tubes", tubes);
         req.getRequestDispatcher(WebConstants.HOME_VIEW_JSP).forward(req, resp);
     }

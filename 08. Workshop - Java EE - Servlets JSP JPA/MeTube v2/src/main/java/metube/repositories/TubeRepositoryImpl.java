@@ -1,7 +1,7 @@
 package metube.repositories;
 
 import metube.domain.entities.Tube;
-import metube.domain.models.view.TubeDetailsViewModel;
+import metube.domain.enums.TubeStatus;
 import metube.domain.models.view.TubeHomeViewModel;
 import metube.domain.models.view.TubeProfileViewModel;
 
@@ -24,8 +24,8 @@ public class TubeRepositoryImpl implements TubeRepository {
     }
 
     @Override
-    public Tube update(Tube entity) {
-        return this.manager.merge(entity);
+    public void update(Tube entity) {
+        this.manager.merge(entity);
     }
 
     @Override
@@ -45,25 +45,9 @@ public class TubeRepositoryImpl implements TubeRepository {
         return this.manager
                 .createQuery("" +
                         "SELECT " +
-                        "new metube.domain.models.view.TubeHomeViewModel(t.id, t.title, t.uploader.username, t.youtubeId) " +
+                        "new metube.domain.models.view.TubeHomeViewModel(t.id, t.title, t.uploader, t.youtubeId) " +
                         "FROM Tube t", TubeHomeViewModel.class)
                 .getResultList();
-    }
-
-    @Override
-    public TubeDetailsViewModel findViewModelById(String id) {
-        try {
-            return this.manager
-                    .createQuery("" +
-                            "SELECT " +
-                            "new metube.domain.models.view.TubeDetailsViewModel(t.title, t.author, t.youtubeId, t.description, t.views) " +
-                            "FROM Tube t " +
-                            "WHERE t.id = :id", TubeDetailsViewModel.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
-        } catch (NoResultException nre) {
-            return null;
-        }
     }
 
     @Override
@@ -76,6 +60,17 @@ public class TubeRepositoryImpl implements TubeRepository {
                         "WHERE t.uploader.id = :id " +
                         "ORDER BY t.views DESC ", TubeProfileViewModel.class)
                 .setParameter("id", id)
+                .getResultList();
+    }
+
+    @Override
+    public List<Tube> findByTubeStatus(TubeStatus status) {
+        return this.manager
+                .createQuery("" +
+                        "SELECT t " +
+                        "FROM Tube t " +
+                        "WHERE t.status = :status", Tube.class)
+                .setParameter("status", TubeStatus.valueOf(status.name()))
                 .getResultList();
     }
 }

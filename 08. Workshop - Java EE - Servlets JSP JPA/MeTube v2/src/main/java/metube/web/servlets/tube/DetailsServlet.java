@@ -26,7 +26,7 @@ public class DetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getPathInfo().substring(1);
         this.tubeService.incrementViews(id);
-        TubeDetailsViewModel tube = this.tubeService.findById(id);
+        TubeDetailsViewModel tube = this.tubeService.findByIdViewModel(id, TubeDetailsViewModel.class);
         req.setAttribute("tube", tube);
 
         req.getRequestDispatcher(WebConstants.DETAILS_VIEW_JSP).forward(req, resp);
