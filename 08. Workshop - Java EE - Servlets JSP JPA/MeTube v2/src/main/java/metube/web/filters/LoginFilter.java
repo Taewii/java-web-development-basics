@@ -29,7 +29,9 @@ public class LoginFilter implements Filter {
             String password = request.getParameter("password");
 
             User user = this.userService.find(username, password);
+            boolean isUserAdmin = this.userService.isUserAdmin(username);
             request.setAttribute("model", user);
+            request.setAttribute("isAdmin", isUserAdmin);
         }
 
         chain.doFilter(req, response);

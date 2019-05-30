@@ -26,11 +26,20 @@ public class UserRoleRepositoryImpl implements UserRoleRepository {
 
     @Override
     public Role findByType(UserRole type) {
-        return this.manager.createQuery("SELECT r FROM Role r WHERE r.role = :typee", Role.class)
+        return this.manager
+                .createQuery("SELECT r FROM Role r WHERE r.role = :typee", Role.class)
                 .setParameter("typee", UserRole.valueOf(type.name())) // no clue why it doesnt work with just the type param
                 .getSingleResult();
     }
 
+    @Override
+    public boolean isTableEmpty() {
+        return this.manager
+                .createQuery("SELECT r FROM Role r", Role.class)
+                .setMaxResults(1)
+                .getResultList()
+                .isEmpty();
+    }
 
     @Override
     public Role findById(Integer id) {

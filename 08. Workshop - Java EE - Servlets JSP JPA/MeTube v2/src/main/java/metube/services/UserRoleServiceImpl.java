@@ -21,6 +21,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
+    public boolean isTableEmpty() {
+        return this.userRoleRepository.isTableEmpty();
+    }
+
+    @Override
     public Role findByType(UserRole type) {
         return this.userRoleRepository.findByType(type);
     }

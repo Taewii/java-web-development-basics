@@ -75,4 +75,14 @@ public class UserServiceImpl implements UserService {
 
         return validatePassword ? user : null;
     }
+
+    @Override
+    public boolean isUserAdmin(String username) {
+        User user = this.userRepository.findByUsernameWithRoles(username);
+        if (user == null) {
+            return false;
+        }
+
+        return user.getRoles().stream().anyMatch(ur -> ur.getRole() == UserRole.ADMIN);
+    }
 }

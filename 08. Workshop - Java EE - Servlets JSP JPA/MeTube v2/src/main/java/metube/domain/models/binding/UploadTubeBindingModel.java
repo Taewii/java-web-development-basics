@@ -3,6 +3,7 @@ package metube.domain.models.binding;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import metube.domain.enums.TubeStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,4 +26,6 @@ public class UploadTubeBindingModel {
 
     @NotNull
     private UserIdBindingModel uploader;
+
+    private TubeStatus status = TubeStatus.PENDING;
 }

@@ -8,6 +8,10 @@ import java.lang.reflect.InvocationTargetException;
 
 public final class FilterUtil {
 
+    public static boolean isAdmin(HttpSession session) {
+        return isAuthenticated(session) && (boolean) session.getAttribute("isAdmin");
+    }
+
     public static boolean isGuest(HttpSession session) {
         return !isAuthenticated(session);
     }

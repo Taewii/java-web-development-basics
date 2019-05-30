@@ -8,4 +8,6 @@ public interface UserRoleService {
     void save(Role role);
 
     Role findByType(UserRole admin);
+
+    boolean isTableEmpty();
 }

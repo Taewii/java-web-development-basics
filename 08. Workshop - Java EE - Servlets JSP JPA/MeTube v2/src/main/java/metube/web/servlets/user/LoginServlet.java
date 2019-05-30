@@ -21,12 +21,14 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         User user = (User) req.getAttribute("model");
+        boolean isAdmin = (boolean) req.getAttribute("isAdmin");
 
         if (user == null) {
             throw new IllegalArgumentException("Invalid credentials");
         } else {
             req.getSession().setAttribute("user", user);
             req.getSession().setAttribute("user_id", user.getId());
+            req.getSession().setAttribute("isAdmin", isAdmin);
         }
 
         resp.sendRedirect(WebConstants.HOME_URL);

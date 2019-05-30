@@ -8,4 +8,6 @@ public interface UserService {
     void save(RegisterBindingModel user);
 
     User find(String username, String password);
+
+    boolean isUserAdmin(String username);
 }

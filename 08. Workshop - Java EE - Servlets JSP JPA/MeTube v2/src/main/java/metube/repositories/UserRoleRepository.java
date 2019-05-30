@@ -6,4 +6,6 @@ import metube.domain.enums.UserRole;
 public interface UserRoleRepository extends GenericRepository<Role, Integer> {
 
     Role findByType(UserRole name);
+
+    boolean isTableEmpty();
 }

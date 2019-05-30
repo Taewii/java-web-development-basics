@@ -9,6 +9,7 @@
     <a class="navbar-brand h4" href="/">MeTube&trade;</a>
 
     <% User user = (User) request.getSession().getAttribute("user"); %>
+    <% Boolean isAdmin = (Boolean) request.getSession().getAttribute("isAdmin"); %>
 
     <div class="collapse navbar-collapse justify-content-center row" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
@@ -23,15 +24,20 @@
                 <a class="nav-link h5" href="/register">Register</a>
             </li>
             <% } else { %>
-            <li class="nav-item active col-md-3">
+            <li class="nav-item active col-md-2">
                 <a class="nav-link h5" href="/home">Home</a>
             </li>
-            <li class="nav-item active col-md-3">
+            <li class="nav-item active col-md-2">
                 <a class="nav-link h5" href="/profile">Profile</a>
             </li>
             <li class="nav-item active col-md-3">
                 <a class="nav-link h5" href="/upload">Upload</a>
             </li>
+            <% if (isAdmin != null && isAdmin) { %>
+            <li class="nav-item active col-md-2">
+                <a class="nav-link h5" href="/admin/tube/pending">Pending</a>
+            </li>
+            <% } %>
             <li class="nav-item active col-md-3">
                 <a class="nav-link h5" href="/logout">Logout</a>
             </li>

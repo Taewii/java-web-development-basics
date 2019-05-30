@@ -21,10 +21,12 @@ public class UserRoleInitializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        for (UserRole roleEnum : UserRole.values()) {
-            Role role = new Role();
-            role.setRole(roleEnum);
-            this.userRoleService.save(role);
+        if (this.userRoleService.isTableEmpty()) {
+            for (UserRole roleEnum : UserRole.values()) {
+                Role role = new Role();
+                role.setRole(roleEnum);
+                this.userRoleService.save(role);
+            }
         }
     }
 }
