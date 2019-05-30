@@ -58,7 +58,8 @@ public class TubeServiceImpl implements TubeService {
 
     @Override
     public <T> T findByIdViewModel(String id, Class<T> klass) {
-        return this.mapper.map(this.tubeRepository.findById(id), klass);
+        Tube tube = this.tubeRepository.findById(id);
+        return tube == null ? null : this.mapper.map(tube, klass);
     }
 
     @Override

@@ -46,6 +46,16 @@ final class FilterUtil {
         return null;
     }
 
+    static String extractIdFromYoutubeLink(String youtubeLink) {
+        String videoId = youtubeLink.split("v=")[1];
+        int ampersandPosition = videoId.indexOf('&');
+        if (ampersandPosition != -1) {
+            videoId = videoId.substring(0, ampersandPosition);
+        }
+
+        return videoId;
+    }
+
     private static Object parseValue(Class<?> type, String value) {
         if (type == null || value == null) {
             return null;
@@ -64,15 +74,5 @@ final class FilterUtil {
         } else {
             return value;
         }
-    }
-
-    static String extractIdFromYoutubeLink(String youtubeLink) {
-        String videoId = youtubeLink.split("v=")[1];
-        int ampersandPosition = videoId.indexOf('&');
-        if (ampersandPosition != -1) {
-            videoId = videoId.substring(0, ampersandPosition);
-        }
-
-        return videoId;
     }
 }

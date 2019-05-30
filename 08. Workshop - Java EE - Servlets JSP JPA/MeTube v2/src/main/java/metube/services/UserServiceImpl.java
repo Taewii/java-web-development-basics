@@ -7,6 +7,7 @@ import metube.repositories.UserRepository;
 import metube.util.PasswordHash;
 import org.modelmapper.ModelMapper;
 
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -59,13 +60,22 @@ public class UserServiceImpl implements UserService {
         }
 
         entity.addRole(this.userRoleService.findByType(UserRole.REGULAR));
-        this.userRepository.update(entity);
+
+        try {
+            this.userRepository.update(entity);
+        } catch (EJBTransactionRolledbackException e) { // TODO: 30.5.2019 г. figure out how handle this correctly
+            throw new IllegalArgumentException("Username/e-mail is already in use.");
+        }
     }
 
     @Override
     public User find(String username, String password) {
         User user = this.userRepository.findByUsername(username);
         boolean validatePassword = false;
+
+        if (user == null) {
+            return null;
+        }
 
         try {
             validatePassword = PasswordHash.validatePassword(password, user.getPassword());

@@ -37,9 +37,12 @@
                 <% for (int i = 0; i < tubes.size(); i++) { %>
                 <% TubeProfileViewModel tube = tubes.get(i); %>
                 <tr>
-                    <td><%= i + 1%></td>
-                    <td><%= tube.getTitle()%></td>
-                    <td><%= tube.getAuthor()%></td>
+                    <td><%= i + 1%>
+                    </td>
+                    <td><%= tube.getTitle()%>
+                    </td>
+                    <td><%= tube.getAuthor()%>
+                    </td>
                     <td><a href="/details/<%= tube.getId()%>">Details</a></td>
                 </tr>
                 <% } %>

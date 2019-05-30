@@ -42,7 +42,7 @@
                         <div class="control-group">
                             <label class="control-label h3 mb-2" for="email">Email</label>
                             <div class="controls">
-                                <input type="text" id="email" name="email" placeholder=""
+                                <input type="email" id="email" name="email" placeholder=""
                                        class="input-xlarge">
                             </div>
                         </div>

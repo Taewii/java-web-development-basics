@@ -29,6 +29,11 @@ public class LoginFilter implements Filter {
             String password = request.getParameter("password");
 
             User user = this.userService.find(username, password);
+
+            if (user == null) {
+                throw new IllegalArgumentException("Invalid username or password.");
+            }
+
             boolean isUserAdmin = this.userService.isUserAdmin(username);
             request.setAttribute("model", user);
             request.setAttribute("isAdmin", isUserAdmin);
