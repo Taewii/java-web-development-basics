@@ -8,7 +8,9 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Getter
@@ -32,10 +34,12 @@ public class Employee extends BaseEntity {
     private String position;
 
     @Column
-    @NotBlank
+    @NotNull
+    @Min(0)
     private BigDecimal salary;
 
     @Column
-    @NotBlank
+    @NotNull
+    @Min(0)
     private int age;
 }

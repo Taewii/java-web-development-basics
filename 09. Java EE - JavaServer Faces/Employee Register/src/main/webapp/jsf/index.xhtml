@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">>
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
@@ -31,50 +32,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="row">
-                <th scope="row" class="col-md-1">1</th>
-                <td class="col-md-2">Mark</td>
-                <td class="col-md-2">Otto</td>
-                <td class="col-md-3">Computer Specialist</td>
-                <td class="col-md-1">$5500.00</td>
-                <td class="col-md-1">29</td>
-                <td class="col-md-2">
-                    <button class="btn btn-danger">Remove</button>
-                </td>
-            </tr>
-            <tr class="row">
-                <th scope="row" class="col-md-1">2</th>
-                <td class="col-md-2">Donald</td>
-                <td class="col-md-2">Fitzgerald</td>
-                <td class="col-md-3">Marketing Manager</td>
-                <td class="col-md-1">$2500.00</td>
-                <td class="col-md-1">34</td>
-                <td class="col-md-2">
-                    <button class="btn btn-danger">Remove</button>
-                </td>
-            </tr>
-            <tr class="row">
-                <th scope="row" class="col-md-1">1</th>
-                <td class="col-md-2">Casio</td>
-                <td class="col-md-2">Florenco</td>
-                <td class="col-md-3">Graphic Designer</td>
-                <td class="col-md-1">$4000.00</td>
-                <td class="col-md-1">27</td>
-                <td class="col-md-2">
-                    <button class="btn btn-danger">Remove</button>
-                </td>
-            </tr>
-            <tr class="row">
-                <th scope="row" class="col-md-1">1</th>
-                <td class="col-md-2">Isacc</td>
-                <td class="col-md-2">Netero</td>
-                <td class="col-md-3">Tech Support</td>
-                <td class="col-md-1">$4900.00</td>
-                <td class="col-md-1">30</td>
-                <td class="col-md-2">
-                    <button class="btn btn-danger">Remove</button>
-                </td>
-            </tr>
+            <c:forEach var="employee" items="#{listEmployeesBean.employees}" varStatus="loop">
+                <tr class="row">
+                    <th scope="row" class="col-md-1">#{loop.index + 1}</th>
+                    <td class="col-md-2">#{employee.firstName}</td>
+                    <td class="col-md-2">#{employee.lastName}</td>
+                    <td class="col-md-3">#{employee.position}</td>
+                    <td class="col-md-1">$#{employee.salary}</td>
+                    <td class="col-md-1">#{employee.age}</td>
+                    <td class="col-md-2">
+                        <p:commandButton value="Remove" styleClass="btn btn-danger" immediate="true"
+                                         action="#{removeEmployeeBean.remove(employee.id)}"/>
+                    </td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
         <hr style="height: 2px;" class="bg-dark"/>
@@ -101,7 +72,7 @@
                     <h:outputLabel for="salary" value="Salary"/>
                     <p:inputText value="#{employeeRegisterBean.employee.salary}" pt:type="number"
                                  styleClass="form-control" id="salary"
-                                 placeholder="Salry.."
+                                 placeholder="Salary.."
                                  pt:required="true" pt:step="0.01" pt:min="0.0"/>
                 </div>
                 <div class="form-submit-holder d-flex justify-content-center w-25">
@@ -118,8 +89,8 @@
         </h:form>
         <hr style="height: 2px;" class="bg-dark"/>
         <div class="d-flex justify-content-between">
-            <h5 class="w-50">Total Money Needed: $16900.00</h5>
-            <h5 class="w-50 text-right">Average Salary: $4225.00</h5>
+            <h5 class="w-50">Total Money Needed: $#{listEmployeesBean.totalSalaries}</h5>
+            <h5 class="w-50 text-right">Average Salary: $#{listEmployeesBean.averageSalary}</h5>
         </div>
         <hr style="height: 2px;" class="bg-dark"/>
     </div>

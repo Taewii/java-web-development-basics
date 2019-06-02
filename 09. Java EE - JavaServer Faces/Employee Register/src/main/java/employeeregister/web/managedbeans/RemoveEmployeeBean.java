@@ -1,6 +1,5 @@
 package employeeregister.web.managedbeans;
 
-import employeeregister.domain.models.EmployeeRegisterBindingModel;
 import employeeregister.services.EmployeeService;
 import lombok.NoArgsConstructor;
 
@@ -12,28 +11,18 @@ import java.io.IOException;
 
 @Model
 @NoArgsConstructor
-public class EmployeeRegisterBean {
+public class RemoveEmployeeBean {
 
     private EmployeeService employeeService;
 
-    private EmployeeRegisterBindingModel employee = new EmployeeRegisterBindingModel();
-
     @Inject
-    public EmployeeRegisterBean(EmployeeService employeeService) {
+    public RemoveEmployeeBean(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
-    public void register() throws IOException {
-        this.employeeService.save(this.employee);
+    public void remove(String id) throws IOException {
+        this.employeeService.removeEmployee(id);
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect("/");
-    }
-
-    public EmployeeRegisterBindingModel getEmployee() {
-        return this.employee;
-    }
-
-    public void setEmployee(EmployeeRegisterBindingModel employee) {
-        this.employee = employee;
     }
 }

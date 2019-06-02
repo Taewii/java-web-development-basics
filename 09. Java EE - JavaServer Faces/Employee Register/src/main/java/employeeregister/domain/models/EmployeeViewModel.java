@@ -1,33 +1,22 @@
 package employeeregister.domain.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeRegisterBindingModel {
+public class EmployeeViewModel {
 
-    @NotBlank
+    private String id;
     private String firstName;
-
-    @NotBlank
     private String lastName;
-
-    @NotBlank
     private String position;
-
-    @NotNull
-    @Min(0)
     private BigDecimal salary;
-
-    @NotNull
-    @Min(0)
     private int age;
 }
