@@ -12,7 +12,7 @@ body {
 }
 
 .jumbotron-background {
-    background-color: 	#ED8B16;
+    background-color: #ED8B16;
     color: #552190;
 }
 
@@ -27,4 +27,12 @@ body {
 
 .error-message {
     color: red;
+}
+
+.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all.ui-input-overlay {
+    background: white;
+}
+
+input[type="radio"] {
+    margin: 0 0.5em;;
 }

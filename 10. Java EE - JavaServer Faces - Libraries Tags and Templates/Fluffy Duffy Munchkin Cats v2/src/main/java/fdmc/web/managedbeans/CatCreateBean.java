@@ -23,6 +23,7 @@ public class CatCreateBean {
     }
 
     public void create() throws IOException {
+        this.catService.create(this.model);
         FacesContext.getCurrentInstance().getExternalContext().redirect("/");
     }
 

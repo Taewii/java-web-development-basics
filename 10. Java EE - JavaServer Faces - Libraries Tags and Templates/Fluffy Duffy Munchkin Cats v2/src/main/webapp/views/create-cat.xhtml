@@ -23,7 +23,11 @@
                         <div class="form-group">
                             <label for="catNameInput">Name</label>
                             <h:inputText id="catNameInput" name="catNameInput" type="text"
-                                         value="#{catCreateBean.model.name}" class="form-control"/>
+                                         value="#{catCreateBean.model.name}" class="form-control"
+                                         validatorMessage="Name must be between 2 and 10 characters.">
+                                <f:validateLength minimum="2" maximum="10"/>
+                            </h:inputText>
+                            <h:message for="catNameInput"/>
                         </div>
                     </div>
                 </div>
@@ -32,7 +36,11 @@
                         <div class="form-group">
                             <label for="catBreedInput">Breed</label>
                             <h:inputText id="catBreedInput" name="catBreedInput" type="text"
-                                         value="#{catCreateBean.model.breed}" class="form-control"/>
+                                         value="#{catCreateBean.model.breed}" class="form-control"
+                                         validatorMessage="Breed must be between 5 and 20 characters.">
+                                <f:validateLength minimum="5" maximum="20"/>
+                            </h:inputText>
+                            <h:message for="catBreedInput"/>
                         </div>
                     </div>
                 </div>
@@ -41,7 +49,11 @@
                         <div class="form-group">
                             <label for="catColorInput">Color</label>
                             <h:inputText id="catColorInput" name="catColorInput" type="text"
-                                         value="#{catCreateBean.model.color}" class="form-control"/>
+                                         value="#{catCreateBean.model.color}" class="form-control"
+                                         validatorMessage="Field is required.">
+                                <f:validateLength minimum="1"/>
+                            </h:inputText>
+                            <h:message for="catColorInput"/>
                         </div>
                     </div>
                 </div>
@@ -51,7 +63,10 @@
                             <label for="catAgeInput">Age</label>
                             <h:inputText id="catAgeInput" name="catAgeInput" type="text"
                                          value="#{catCreateBean.model.age}"
-                                         class="form-control"/>
+                                         class="form-control" validatorMessage="Age must be between 1 and 31.">
+                                <f:validateLongRange minimum="1" maximum="31"/>
+                            </h:inputText>
+                            <h:message for="catAgeInput"/>
                         </div>
                     </div>
                 </div>
@@ -60,7 +75,10 @@
                         <div class="form-group"><label for="catPriceInput">Price</label>
                             <h:inputText id="catPriceInput" name="catPriceInput" type="text"
                                          value="#{catCreateBean.model.price}"
-                                         class="form-control"/>
+                                         class="form-control" validatorMessage="Price must be more than $0.01">
+                                <f:validateDoubleRange minimum="0.01"/>
+                            </h:inputText>
+                            <h:message for="catPriceInput"/>
                         </div>
                     </div>
                 </div>
@@ -68,28 +86,28 @@
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
                         <label class="mr-4" for="catGenderRadio">Gender</label>
-                        <h:selectOneRadio value="#{catCreateBean.model.gender}">
+                        <h:selectOneRadio value="#{catCreateBean.model.gender}" validatorMessage="Field is required.">
                             <table id="catGenderRadio">
                                 <tr>
                                     <td>
-                                        <f:selectItem itemValue="male" id="catGenderRadio-1"/>
-                                        <label for="catGenderRadio-1"> Male</label>
+                                        <f:selectItem itemValue="male" itemLabel="Male"/>
                                     </td>
                                     <td>
-                                        <f:selectItem itemValue="female" id="catGenderRadio-2"/>
-                                        <label for="catGenderRadio-2"> Female</label>
+                                        <f:selectItem itemValue="female" itemLabel="Female"/>
                                     </td>
                                 </tr>
                             </table>
                         </h:selectOneRadio>
+                        <h:message for="catGenderRadio"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center">
                         <div class="form-check">
                             <h:selectBooleanCheckbox value="#{catCreateBean.model.hasPassport}" id="catPassportCheckbox"
-                                                     styleClass="form-check-input"/>
+                                                     styleClass="form-check-input" required="true"/>
                             <label class="form-check-label mr-4" for="catPassportCheckbox">Has passport</label>
+                            <h:message for="catPassportCheckbox"/>
                         </div>
                     </div>
                 </div>
@@ -99,9 +117,11 @@
                         <div class="form-group">
                             <label for="catAddedOnInput">Added On</label>
                             <span id="catAddedOnInput" class="ui-calendar form-control">
-                               <p:calendar id="popup" value="#{catCreateBean.model.addedOn}" pattern="dd-MMM-yyyy"/>
+                               <p:calendar id="popup" value="#{catCreateBean.model.addedOn}" pattern="dd-MMM-yyyy"
+                                           required="true" validatorMessage="Field is required."/>
                             </span>
                         </div>
+                        <h:message for="catAddedOnInput"/>
                     </div>
                 </div>
                 <hr class="hr-background"/>

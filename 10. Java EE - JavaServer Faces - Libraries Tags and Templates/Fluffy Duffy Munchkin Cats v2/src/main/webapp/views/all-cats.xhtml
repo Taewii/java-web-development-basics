@@ -3,7 +3,10 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="templates/layout.xhtml">
     <ui:define name="main-content">
@@ -14,28 +17,36 @@
                 </div>
             </div>
             <hr class="hr-background"/>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Breed</th>
-                    <th scope="col">Color</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Added On</th>
-                </tr>
-                </thead>
-                <tbody id="j_id_p:tbody_element">
-                <tr>
-                    <td>1</td>
-                    <td>12</td>
-                    <td>123</td>
-                    <td>1234</td>
-                    <td>12345</td>
-                    <td>123456</td>
-                </tr>
-                </tbody>
-            </table>
+            <h4 class="text-center">Sorting doesnt work at the moment.</h4>
+            <p:dataTable styleClass="table table-striped" value="#{listCatsBean.cats}" var="cat" sortMode="multiple">
+                <p:column headerText="Name" sortBy="#{cat.name}">
+                    <h:outputText value="#{cat.name}"/>
+                </p:column>
+
+                <p:column headerText="Breed" sortBy="#{cat.breed}">
+                    <h:outputText value="#{cat.breed}"/>
+                </p:column>
+
+                <p:column headerText="Color" sortBy="#{cat.color}">
+                    <h:outputText value="#{cat.color}"/>
+                </p:column>
+
+                <p:column headerText="Gender" sortBy="#{cat.gender}">
+                    <h:outputText value="#{cat.gender}"/>
+                </p:column>
+
+                <p:column headerText="Price" sortBy="#{cat.price}">
+                    <h:outputText value="#{cat.price}">
+                        <f:convertNumber currencySymbol="$" type="currency"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Added On" sortBy="#{cat.addedOn}">
+                    <h:outputText value="#{cat.addedOn}">
+                        <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
         </div>
     </ui:define>
 </ui:composition>
