@@ -6,38 +6,29 @@
                 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
         version="4.0">
 
-    <context-param>
-        <param-name>primefaces.THEME</param-name>
-        <param-value>none</param-value>
-    </context-param>
+<!--    <servlet>-->
+<!--        <servlet-name>Faces Servlet</servlet-name>-->
+<!--        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--    </servlet>-->
 
-    <welcome-file-list>
-        <welcome-file>faces/views/index.xhtml</welcome-file>
-    </welcome-file-list>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>Faces Servlet</servlet-name>-->
+<!--        <url-pattern>*.xhtml</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>Faces Servlet</servlet-name>-->
+<!--        <url-pattern>*.jsf</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>Faces Servlet</servlet-name>-->
+<!--        <url-pattern>*.faces</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.faces</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>Faces Servlet</servlet-name>-->
+<!--        <url-pattern>/faces/*</url-pattern>-->
+<!--    </servlet-mapping>-->
 </web-app>
