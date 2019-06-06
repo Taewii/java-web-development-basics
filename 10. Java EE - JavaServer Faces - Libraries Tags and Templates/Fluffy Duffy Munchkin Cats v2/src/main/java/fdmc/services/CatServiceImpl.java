@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,8 +38,8 @@ public class CatServiceImpl implements CatService {
             throw new IllegalArgumentException(message);
         }
 
-        // LocalDate today = LocalDate.now( ZoneId.of( "America/Montreal" ) ) ;
-        // TODO: 4.6.2019 г. format date
+        // + 1 day cus Temporal(DATE) sets it 1 day before probably cus time zone
+        model.setAddedOn(new Date(model.getAddedOn().getTime() + 1 * 24 * 60 * 60 * 1000));
         this.catRepository.save(this.mapper.map(model, Cat.class));
     }
 

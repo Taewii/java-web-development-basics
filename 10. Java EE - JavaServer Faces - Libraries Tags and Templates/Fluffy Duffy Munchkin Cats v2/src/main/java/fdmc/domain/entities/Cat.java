@@ -33,28 +33,26 @@ public class Cat {
     @Size(min = 5, max = 20)
     private String breed;
 
-    @Column
-    @NotBlank
+    @Column(nullable = false)
     private String color;
 
-    @Column
     @Min(1)
     @Max(31)
+    @Column(nullable = false)
     private Integer age;
 
-    @Column
-    @NotBlank
+    @Column(nullable = false)
     private String gender;
 
-    @Column
     @DecimalMin("0.01")
+    @Column(nullable = false)
     private BigDecimal price;
 
-    @Column
-    @NotNull
+    @PastOrPresent
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private Date addedOn;
 
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private Boolean hasPassport;
 }

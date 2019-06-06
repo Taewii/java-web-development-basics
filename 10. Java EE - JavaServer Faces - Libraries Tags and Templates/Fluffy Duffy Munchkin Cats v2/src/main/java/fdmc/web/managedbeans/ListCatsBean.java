@@ -19,6 +19,7 @@ public class ListCatsBean {
         this.cats = catService.findAll();
     }
 
+    // TODO: 6.6.2019 г. fix primefaces column sorting
     public List<CatViewModel> getCats() {
         return this.cats;
     }
