@@ -36,14 +36,14 @@ public class User extends BaseEntity {
     private Role role;
 
     @OneToMany(
-            mappedBy = "user",
+            mappedBy = "recipient",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<Package> packages = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "user",
+            mappedBy = "recipient",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
