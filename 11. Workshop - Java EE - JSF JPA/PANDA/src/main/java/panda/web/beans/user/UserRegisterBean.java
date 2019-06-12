@@ -12,9 +12,9 @@ import javax.inject.Inject;
 @NoArgsConstructor
 public class UserRegisterBean extends BaseBean {
 
-    private UserService userService;
-
     private UserRegisterBindingModel model = new UserRegisterBindingModel();
+
+    private UserService userService;
 
     @Inject
     public UserRegisterBean(UserService userService) {

@@ -14,4 +14,12 @@ public class UserRepositoryImpl extends BaseCrudRepository<User, String> impleme
                 .getResultList()
                 .isEmpty();
     }
+
+    @Override
+    public User findByIdWithPackages(String id) {
+        return super.entityManager
+                .createQuery("SELECT u FROM User u LEFT JOIN FETCH u.packages WHERE u.id = :id", User.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 }

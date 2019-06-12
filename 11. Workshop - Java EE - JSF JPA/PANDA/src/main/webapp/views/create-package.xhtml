@@ -1,0 +1,49 @@
+<ui:composition template="templates/base-layout.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="main-content">
+        <h1 class="text-center">Create Package</h1>
+        <hr class="hr-2 bg-panda w-50"/>
+        <div class="d-flex">
+            <h:form class="w-50 mx-auto">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <h:inputText type="text" class="form-control" id="description" placeholder="Description..."
+                                 value="#{packageCreateBean.model.description}"/>
+                </div>
+                <div class="weight-and-address-holder d-flex justify-content-between">
+                    <div class="form-group w-50 pr-5">
+                        <label for="weight">Weight</label>
+                        <h:inputText type="number" class="form-control" id="weight" placeholder="Weight..."
+                                     value="#{packageCreateBean.model.weight}" pt:type="number" pt:step="0.01"
+                                     pt:min="0.0"/>
+                    </div>
+                    <div class="form-group w-50 pl-5">
+                        <label for="address">Shipping Address</label>
+                        <h:inputText type="text" class="form-control" id="address" placeholder="Shipping Address..."
+                                     value="#{packageCreateBean.model.shippingAddress}"/>
+                    </div>
+                </div>
+                <hr class="hr-2 bg-panda"/>
+                <div class="form-group w-50 mx-auto">
+                    <div class="text-center">
+                        <label for="recipient">Recipient</label>
+                    </div>
+                    <h:selectOneMenu value="#{packageCreateBean.model.recipient}" styleClass="custom-select">
+                        <f:selectItem itemValue="" itemLabel="-- Choose Recipient --" itemDisabled="true"/>
+                        <c:forEach var="user" items="#{packageCreateBean.users}">
+                            <f:selectItem itemValue="#{user.id}" itemLabel="#{user.username}"/>
+                        </c:forEach>
+                    </h:selectOneMenu>
+                </div>
+                <hr class="hr-2 bg-panda"/>
+                <div class="button-holder d-flex justify-content-center">
+                    <h:commandButton styleClass="btn bg-panda text-white" value="Create"
+                                     action="#{packageCreateBean.create}"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

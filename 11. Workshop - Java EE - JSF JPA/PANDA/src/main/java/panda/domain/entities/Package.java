@@ -26,7 +26,7 @@ public class Package extends BaseEntity {
     private Double weight;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "shipping_address", nullable = false)
     private String shippingAddress;
 
     @NotNull
@@ -34,9 +34,8 @@ public class Package extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @NotNull
     @FutureOrPresent
-    @Column(nullable = false)
+    @Column(name = "estimated_delivery_date")
     private LocalDateTime estimatedDeliveryDate;
 
     @OneToOne(mappedBy = "packet", cascade = CascadeType.ALL,

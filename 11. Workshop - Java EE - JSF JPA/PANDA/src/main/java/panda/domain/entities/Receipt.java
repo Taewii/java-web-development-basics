@@ -20,7 +20,7 @@ public class Receipt extends BaseEntity {
     @Column(nullable = false)
     private BigDecimal fee;
 
-    @Column(nullable = false)
+    @Column(name = "issued_on", nullable = false)
     private LocalDateTime issuedOn;
 
     @ManyToOne(fetch = FetchType.LAZY)

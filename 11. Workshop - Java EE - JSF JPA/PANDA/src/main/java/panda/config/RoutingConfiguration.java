@@ -16,7 +16,8 @@ public class RoutingConfiguration extends HttpConfigurationProvider {
         return ConfigurationBuilder.begin()
                 .addRule(Join.path("/").to("/faces/views/index.xhtml"))
                 .addRule(Join.path("/register").to("/faces/views/register.xhtml"))
-                .addRule(Join.path("/login").to("/faces/views/login.xhtml"));
+                .addRule(Join.path("/login").to("/faces/views/login.xhtml"))
+                .addRule(Join.path("/packages/create").to("/faces/views/create-package.xhtml"));
     }
 
     @Override

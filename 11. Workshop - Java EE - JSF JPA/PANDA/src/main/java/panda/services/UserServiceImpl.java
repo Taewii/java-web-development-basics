@@ -6,6 +6,7 @@ import panda.domain.enums.Role;
 import panda.domain.models.binding.UserLoginBindingModel;
 import panda.domain.models.binding.UserRegisterBindingModel;
 import panda.domain.models.view.LoggedInUserViewModel;
+import panda.domain.models.view.UserOptionViewModel;
 import panda.repositories.UserRepository;
 import panda.util.PasswordHash;
 
@@ -15,6 +16,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -78,5 +80,24 @@ public class UserServiceImpl implements UserService {
                 })
                 .map(user -> this.mapper.map(user, LoggedInUserViewModel.class))
                 .findFirst();
+    }
+
+    @Override
+    public List<UserOptionViewModel> userOptionViewModels() {
+        return this.userRepository
+                .findAll()
+                .stream()
+                .map(user -> this.mapper.map(user, UserOptionViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public User findByIdWithPackages(String id) {
+        return this.userRepository.findByIdWithPackages(id);
+    }
+
+    @Override
+    public void update(User user) {
+        this.userRepository.update(user);
     }
 }
