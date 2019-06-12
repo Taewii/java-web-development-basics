@@ -5,10 +5,14 @@ import panda.domain.entities.Package;
 import panda.domain.entities.User;
 import panda.domain.enums.Status;
 import panda.domain.models.binding.PackageCreateBindingModel;
+import panda.domain.models.view.PackageDetailsViewModel;
+import panda.domain.models.view.PackageIndexViewModel;
 import panda.repositories.PackageRepository;
 
 import javax.inject.Inject;
 import javax.validation.Validator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PackageServiceImpl implements PackageService {
 
@@ -37,5 +41,18 @@ public class PackageServiceImpl implements PackageService {
         packet.setStatus(Status.PENDING);
         user.addPackage(packet);
         this.userService.update(user);
+    }
+
+    @Override
+    public List<PackageIndexViewModel> findAllByStatus(Status status) {
+        return this.packageRepository.findByAttributeAndValue("status", status)
+                .stream()
+                .map(packet -> this.mapper.map(packet, PackageIndexViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public PackageDetailsViewModel findById(String id) {
+        return this.packageRepository.findByIdWithUser(id);
     }
 }

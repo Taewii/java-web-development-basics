@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter({"/login", "/register", "/packages/*"})
+@WebFilter({"/login", "/register", "/packages/create", "/packages/delivered", "/packages/shipped", "/packages/pending"})
 public class UserAuthorizationFilter implements Filter {
 
     @Override

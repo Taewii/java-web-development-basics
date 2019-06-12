@@ -1,5 +1,5 @@
 <ui:composition template="templates/base-layout.xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="main-content">
         <c:choose>
             <c:when test="#{username != null}">
@@ -9,28 +9,34 @@
                     <div class="w-25 bg-white">
                         <h2 class="text-center">Pending</h2>
                         <div class="border-panda p-3">
-                            <div class="p-2 d-flex justify-content-around">
-                                <h4 class="w-75">IPhone XS Case</h4>
-                                <a href="" class="btn bg-panda text-white w-25">Details</a>
-                            </div>
+                            <c:forEach var="packet" items="#{packageListingBean.pending}">
+                                <div class="p-2 d-flex justify-content-around">
+                                    <h4 class="w-75">#{packet.description}</h4>
+                                    <a href="/packages/details?id=${packet.id}" class="btn bg-panda text-white w-25">Details</a>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="w-25 bg-white">
                         <h2 class="text-center">Shipped</h2>
                         <div class="border-panda p-3">
-                            <div class="p-2 d-flex justify-content-around">
-                                <h4 class="w-75">1959 Irish Bourbon</h4>
-                                <a href="" class="btn bg-panda text-white w-25">Details</a>
-                            </div>
+                            <c:forEach var="packet" items="#{packageListingBean.shipped}">
+                                <div class="p-2 d-flex justify-content-around">
+                                    <h4 class="w-75">#{packet.description}</h4>
+                                    <a href="/packages/details?id=${packet.id}" class="btn bg-panda text-white w-25">Details</a>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="w-25 bg-white">
                         <h2 class="text-center">Delivered</h2>
                         <div class="border-panda p-3">
-                            <div class="p-2 d-flex justify-content-around">
-                                <h4 class="w-75">Dog Toy</h4>
-                                <a href="" class="btn bg-panda text-white w-25">Acquire</a>
-                            </div>
+                            <c:forEach var="packet" items="#{packageListingBean.delivered}">
+                                <div class="p-2 d-flex justify-content-around">
+                                    <h4 class="w-75">#{packet.description}</h4>
+                                    <a href="/packages/details?id=${packet.id}" class="btn bg-panda text-white w-25">Details</a>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
