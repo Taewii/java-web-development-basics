@@ -1,4 +1,4 @@
-package panda.domain.models;
+package panda.domain.models.binding;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

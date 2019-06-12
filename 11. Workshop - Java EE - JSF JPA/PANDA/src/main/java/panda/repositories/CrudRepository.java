@@ -10,6 +10,8 @@ public interface CrudRepository<Entity extends Identifiable<Id>, Id> {
 
     List<Entity> findAll();
 
+    <T> List<Entity> findByAttributeAndValue(String attributeName, T value);
+
     void save(Entity entity);
 
     void update(Entity entity);

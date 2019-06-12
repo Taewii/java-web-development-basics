@@ -3,7 +3,9 @@ package panda.services;
 import org.modelmapper.ModelMapper;
 import panda.domain.entities.User;
 import panda.domain.enums.Role;
-import panda.domain.models.UserRegisterBindingModel;
+import panda.domain.models.binding.UserLoginBindingModel;
+import panda.domain.models.binding.UserRegisterBindingModel;
+import panda.domain.models.view.LoggedInUserViewModel;
 import panda.repositories.UserRepository;
 import panda.util.PasswordHash;
 
@@ -13,6 +15,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,12 +54,29 @@ public class UserServiceImpl implements UserService {
 
         User entity = this.mapper.map(user, User.class);
         entity.setRole(this.userRepository.isTableEmpty() ? Role.ADMIN : Role.USER);
-//        entity.setRole(Role.ADMIN);
 
         try {
             this.userRepository.save(entity);
         } catch (EJBTransactionRolledbackException e) { // TODO: 30.5.2019 г. figure out how handle this correctly
             throw new IllegalArgumentException("Username/e-mail is already in use.");
         }
+    }
+
+    @Override
+    public Optional<LoggedInUserViewModel> login(UserLoginBindingModel model) {
+        return this.userRepository.findByAttributeAndValue("username", model.getUsername())
+                .stream()
+                .filter(user -> {
+                    boolean valid = false;
+                    try {
+                        valid = PasswordHash.validatePassword(model.getPassword(), user.getPassword());
+                    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+                        e.printStackTrace();
+                    }
+
+                    return valid;
+                })
+                .map(user -> this.mapper.map(user, LoggedInUserViewModel.class))
+                .findFirst();
     }
 }

@@ -1,8 +1,9 @@
-package panda.web.beans;
+package panda.web.beans.user;
 
 import lombok.NoArgsConstructor;
-import panda.domain.models.UserRegisterBindingModel;
+import panda.domain.models.binding.UserRegisterBindingModel;
 import panda.services.UserService;
+import panda.web.beans.BaseBean;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
