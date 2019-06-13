@@ -18,7 +18,10 @@ public class RoutingConfiguration extends HttpConfigurationProvider {
                 .addRule(Join.path("/register").to("/faces/views/register.xhtml"))
                 .addRule(Join.path("/login").to("/faces/views/login.xhtml"))
                 .addRule(Join.path("/packages/create").to("/faces/views/create-package.xhtml"))
-                .addRule(Join.path("/packages/details").to("/faces/views/details-package.xhtml"));
+                .addRule(Join.path("/packages/details").to("/faces/views/details-package.xhtml"))
+                .addRule(Join.path("/packages/pending").to("/faces/views/pending-packages.xhtml"))
+                .addRule(Join.path("/packages/shipped").to("/faces/views/shipped-packages.xhtml"))
+                .addRule(Join.path("/packages/delivered").to("/faces/views/delivered-packages.xhtml"));
     }
 
     @Override

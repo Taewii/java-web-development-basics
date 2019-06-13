@@ -3,23 +3,19 @@ package panda.web.beans.packets;
 import lombok.NoArgsConstructor;
 import panda.domain.enums.Status;
 import panda.domain.models.view.PackageIndexViewModel;
+import panda.domain.models.view.PackagePendingAndDeliveredViewModel;
+import panda.domain.models.view.PackageShippedViewModel;
 import panda.services.PackageService;
 import panda.web.beans.BaseBean;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Model
 @NoArgsConstructor
 public class PackageListingBean extends BaseBean {
-
-    private List<PackageIndexViewModel> pending = new ArrayList<>();
-    private List<PackageIndexViewModel> shipped = new ArrayList<>();
-    private List<PackageIndexViewModel> delivered = new ArrayList<>();
 
     private PackageService packageService;
 
@@ -28,22 +24,27 @@ public class PackageListingBean extends BaseBean {
         this.packageService = packageService;
     }
 
-    @PostConstruct
-    private void init() {
-        this.pending = packageService.findAllByStatus(Status.PENDING);
-        this.shipped = packageService.findAllByStatus(Status.SHIPPED);
-        this.delivered = packageService.findAllByStatus(Status.DELIVERED);
+    public List<PackageIndexViewModel> getPendingIndex() {
+        return Collections.unmodifiableList(packageService.findAllByStatus(Status.PENDING, PackageIndexViewModel.class));
     }
 
-    public List<PackageIndexViewModel> getPending() {
-        return Collections.unmodifiableList(this.pending);
+    public List<PackageIndexViewModel> getShippedIndex() {
+        return Collections.unmodifiableList(packageService.findAllByStatus(Status.SHIPPED, PackageIndexViewModel.class));
     }
 
-    public List<PackageIndexViewModel> getShipped() {
-        return Collections.unmodifiableList(this.shipped);
+    public List<PackageIndexViewModel> getDeliveredIndex() {
+        return Collections.unmodifiableList(packageService.findAllByStatus(Status.DELIVERED, PackageIndexViewModel.class));
     }
 
-    public List<PackageIndexViewModel> getDelivered() {
-        return Collections.unmodifiableList(this.delivered);
+    public List<PackagePendingAndDeliveredViewModel> getPendingEager() {
+        return Collections.unmodifiableList(packageService.findAllByStatusEager(Status.PENDING, PackagePendingAndDeliveredViewModel.class));
+    }
+
+    public List<PackageShippedViewModel> getShippedEager() {
+        return Collections.unmodifiableList(packageService.findAllByStatusEager(Status.SHIPPED, PackageShippedViewModel.class));
+    }
+
+    public List<PackagePendingAndDeliveredViewModel> getDeliveredEager() {
+        return Collections.unmodifiableList(packageService.findAllByStatusEager(Status.DELIVERED, PackagePendingAndDeliveredViewModel.class));
     }
 }

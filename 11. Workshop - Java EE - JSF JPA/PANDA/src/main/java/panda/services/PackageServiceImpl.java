@@ -6,7 +6,6 @@ import panda.domain.entities.User;
 import panda.domain.enums.Status;
 import panda.domain.models.binding.PackageCreateBindingModel;
 import panda.domain.models.view.PackageDetailsViewModel;
-import panda.domain.models.view.PackageIndexViewModel;
 import panda.repositories.PackageRepository;
 
 import javax.inject.Inject;
@@ -44,10 +43,18 @@ public class PackageServiceImpl implements PackageService {
     }
 
     @Override
-    public List<PackageIndexViewModel> findAllByStatus(Status status) {
+    public <T> List<T> findAllByStatus(Status status, Class<T> targetEntity) {
         return this.packageRepository.findByAttributeAndValue("status", status)
                 .stream()
-                .map(packet -> this.mapper.map(packet, PackageIndexViewModel.class))
+                .map(packet -> this.mapper.map(packet, targetEntity))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public <T> List<T> findAllByStatusEager(Status status, Class<T> targetEntity) {
+        return this.packageRepository.findAllByStatusEager(status)
+                .stream()
+                .map(packet -> this.mapper.map(packet, targetEntity))
                 .collect(Collectors.toList());
     }
 
