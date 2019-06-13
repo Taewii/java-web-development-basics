@@ -33,7 +33,10 @@
                         </td>
                         <td class="col-lg-2 d-flex justify-content-center"><h5>#{packet.recipientUsername}</h5></td>
                         <td class="col-lg-1 d-flex justify-content-center">
-                            <a href="/packages/deliver?id=#{packet.id}" class="btn bg-panda text-white">Deliver</a>
+                            <h:form>
+                                <h:commandLink styleClass="btn bg-panda text-white" value="Deliver"
+                                               action="#{packageActionsBean.deliver(packet.id)}"/>
+                            </h:form>
                         </td>
                     </tr>
                 </c:forEach>

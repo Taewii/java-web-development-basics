@@ -2,6 +2,7 @@ package panda.services;
 
 import org.modelmapper.ModelMapper;
 import panda.domain.entities.Package;
+import panda.domain.entities.Receipt;
 import panda.domain.entities.User;
 import panda.domain.enums.Status;
 import panda.domain.models.binding.PackageCreateBindingModel;
@@ -10,7 +11,10 @@ import panda.repositories.PackageRepository;
 
 import javax.inject.Inject;
 import javax.validation.Validator;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class PackageServiceImpl implements PackageService {
@@ -43,6 +47,14 @@ public class PackageServiceImpl implements PackageService {
     }
 
     @Override
+    public <T> List<T> findAllByStatusAndUserId(Status status, String userId, Class<T> targetEntity) {
+        return this.packageRepository.findAllByStatusAndUserId(status, userId)
+                .stream()
+                .map(packet -> this.mapper.map(packet, targetEntity))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public <T> List<T> findAllByStatus(Status status, Class<T> targetEntity) {
         return this.packageRepository.findByAttributeAndValue("status", status)
                 .stream()
@@ -61,5 +73,50 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public PackageDetailsViewModel findById(String id) {
         return this.packageRepository.findByIdWithUser(id);
+    }
+
+    @Override
+    public void ship(String id) {
+        Package packet = this.packageRepository.findOne(id);
+
+        Random random = new Random();
+        LocalDateTime deliveryDate = LocalDateTime.now().plusDays(random.ints(1, 20, 40).findFirst().orElse(20));
+
+        packet.setEstimatedDeliveryDate(deliveryDate);
+        packet.setStatus(Status.SHIPPED);
+
+        // not sure why update() keeps the old entity, so this will have to do for now..
+//        this.packageRepository.deleteById(id);
+        this.packageRepository.update(packet);
+    }
+
+    @Override
+    public void deliver(String id) {
+        Package packet = this.packageRepository.findOne(id);
+        packet.setStatus(Status.DELIVERED);
+
+        // not sure why update() keeps the old entity, so this will have to do for now..
+        this.packageRepository.deleteById(id);
+        this.packageRepository.update(packet);
+    }
+
+    @Override
+    public void acquire(String id) {
+        Package packet = this.packageRepository.findByIdEager(id);
+        packet.setStatus(Status.ACQUIRED);
+
+        // not sure why update() keeps the old entity, so this will have to do for now..
+        this.packageRepository.deleteById(id);
+        this.packageRepository.update(packet);
+
+        User user = this.userService.findByIdWithReceipts(packet.getRecipient().getId());
+
+        Receipt receipt = new Receipt();
+        receipt.setFee(BigDecimal.valueOf(packet.getWeight()).multiply(BigDecimal.valueOf(2.67)));
+        receipt.setIssuedOn(LocalDateTime.now());
+        packet.addReceipt(receipt);
+        user.addReceipt(receipt);
+
+        this.userService.update(user);
     }
 }

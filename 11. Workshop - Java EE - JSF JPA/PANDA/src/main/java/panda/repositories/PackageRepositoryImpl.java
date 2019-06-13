@@ -23,8 +23,30 @@ public class PackageRepositoryImpl extends BaseCrudRepository<Package, String> i
 
     @Override
     public List<Package> findAllByStatusEager(Status status) {
-        return super.entityManager.createQuery("SELECT p FROM Package p JOIN FETCH p.recipient WHERE p.status = :status", Package.class)
+        return super.entityManager
+                .createQuery("" +
+                        "SELECT p " +
+                        "FROM Package p " +
+                        "JOIN FETCH p.recipient " +
+                        "WHERE p.status = :status", Package.class)
                 .setParameter("status", status)
                 .getResultList();
+    }
+
+    @Override
+    public List<Package> findAllByStatusAndUserId(Status status, String userId) {
+        return super.entityManager
+                .createQuery("SELECT p FROM Package p WHERE p.status = :status AND p.recipient.id = :userId", Package.class)
+                .setParameter("status", status)
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+
+    @Override
+    public Package findByIdEager(String id) {
+        return super.entityManager
+                .createQuery("SELECT p FROM Package p JOIN FETCH p.recipient WHERE p.id = :id", Package.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }

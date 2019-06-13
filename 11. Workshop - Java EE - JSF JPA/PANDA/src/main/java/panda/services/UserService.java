@@ -19,5 +19,7 @@ public interface UserService {
 
     User findByIdWithPackages(String id);
 
+    User findByIdWithReceipts(String id);
+
     void update(User user);
 }

@@ -26,7 +26,7 @@ public class UserLoginBean extends BaseBean {
     public void login() {
         this.userService.login(this.model).ifPresentOrElse(user -> {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-            session.setAttribute("id", user.getId());
+            session.setAttribute("userId", user.getId());
             session.setAttribute("username", user.getUsername());
             session.setAttribute("role", user.getRole());
             super.redirect("/");

@@ -1,5 +1,5 @@
 <ui:composition template="templates/base-layout.xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="main-content">
         <c:choose>
             <c:when test="#{username != null}">
@@ -9,7 +9,8 @@
                     <div class="w-25 bg-white">
                         <h2 class="text-center">Pending</h2>
                         <div class="border-panda p-3">
-                            <c:forEach var="packet" items="#{packageListingBean.pendingIndex}">
+                            <c:forEach var="packet"
+                                       items="#{role == 'ADMIN' ? packageListingBean.pendingIndex : packageListingBean.userPendingIndex}">
                                 <div class="p-2 d-flex justify-content-around">
                                     <h4 class="w-75">#{packet.description}</h4>
                                     <a href="/packages/details?id=${packet.id}"
@@ -21,7 +22,8 @@
                     <div class="w-25 bg-white">
                         <h2 class="text-center">Shipped</h2>
                         <div class="border-panda p-3">
-                            <c:forEach var="packet" items="#{packageListingBean.shippedIndex}">
+                            <c:forEach var="packet"
+                                       items="#{role == 'ADMIN' ? packageListingBean.shippedIndex : packageListingBean.userShippedIndex}">
                                 <div class="p-2 d-flex justify-content-around">
                                     <h4 class="w-75">#{packet.description}</h4>
                                     <a href="/packages/details?id=${packet.id}"
@@ -33,13 +35,29 @@
                     <div class="w-25 bg-white">
                         <h2 class="text-center">Delivered</h2>
                         <div class="border-panda p-3">
-                            <c:forEach var="packet" items="#{packageListingBean.deliveredIndex}">
-                                <div class="p-2 d-flex justify-content-around">
-                                    <h4 class="w-75">#{packet.description}</h4>
-                                    <a href="/packages/details?id=${packet.id}"
-                                       class="btn bg-panda text-white w-25">Details</a>
-                                </div>
-                            </c:forEach>
+                            <c:choose>
+                                <c:when test="#{role == 'ADMIN'}">
+                                    <c:forEach var="packet" items="#{packageListingBean.deliveredIndex}">
+                                        <div class="p-2 d-flex justify-content-around">
+                                            <h4 class="w-75">#{packet.description}</h4>
+                                            <a href="/packages/details?id=${packet.id}"
+                                               class="btn bg-panda text-white w-25">Details</a>
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach var="packet" items="#{packageListingBean.userDeliveredIndex}">
+                                        <div class="p-2 d-flex justify-content-around">
+                                            <h4 class="w-75">#{packet.description}</h4>
+                                            <h:form>
+                                                <h:commandLink styleClass="btn bg-panda text-white w-25" value="Acquire"
+                                                               action="#{packageActionsBean.acquire(packet.id)}"/>
+                                            </h:form>
+                                        </div>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
                     </div>
                 </div>

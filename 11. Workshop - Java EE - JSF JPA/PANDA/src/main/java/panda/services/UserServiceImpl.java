@@ -97,6 +97,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByIdWithReceipts(String id) {
+        return this.userRepository.findByIdWithReceipts(id);
+    }
+
+    @Override
     public void update(User user) {
         this.userRepository.update(user);
     }

@@ -1,7 +1,7 @@
 <ui:composition template="templates/base-layout.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
->
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="main-content">
         <h1 class="text-center">Pending Shipment</h1>
@@ -27,7 +27,10 @@
                         <td class="col-lg-3 d-flex justify-content-center"><h5>#{packet.shippingAddress}</h5></td>
                         <td class="col-lg-2 d-flex justify-content-center"><h5>#{packet.recipientUsername}</h5></td>
                         <td class="col-lg-1 d-flex justify-content-center">
-                            <a href="/packages/ship?id=#{packet.id}" class="btn bg-panda text-white">Ship</a>
+                            <h:form>
+                                <h:commandLink styleClass="btn bg-panda text-white" value="Ship"
+                                               action="#{packageActionsBean.ship(packet.id)}"/>
+                            </h:form>
                         </td>
                     </tr>
                 </c:forEach>

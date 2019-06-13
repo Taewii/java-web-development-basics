@@ -1,5 +1,6 @@
 package panda.domain.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "packages")
 public class Package extends BaseEntity {
 
@@ -45,4 +47,14 @@ public class Package extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User recipient;
+
+    public void addReceipt(Receipt receipt) {
+        this.receipt = receipt;
+        receipt.setPacket(this);
+    }
+
+    public void removeReceipt(Receipt receipt) {
+        this.receipt = null;
+        receipt.setPacket(null);
+    }
 }

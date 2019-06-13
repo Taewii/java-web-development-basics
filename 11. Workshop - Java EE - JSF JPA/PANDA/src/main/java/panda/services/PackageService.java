@@ -14,6 +14,13 @@ public interface PackageService {
 
     <T> List<T> findAllByStatusEager(Status status, Class<T> targetEntity);
 
+    <T> List<T> findAllByStatusAndUserId(Status status, String userId, Class<T> targetEntity);
+
     PackageDetailsViewModel findById(String id);
 
+    void ship(String id);
+
+    void deliver(String id);
+
+    void acquire(String id);
 }
