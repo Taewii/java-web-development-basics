@@ -84,9 +84,7 @@ public class PackageServiceImpl implements PackageService {
 
         packet.setEstimatedDeliveryDate(deliveryDate);
         packet.setStatus(Status.SHIPPED);
-
-        // not sure why update() keeps the old entity, so this will have to do for now..
-//        this.packageRepository.deleteById(id);
+        
         this.packageRepository.update(packet);
     }
 
@@ -95,8 +93,6 @@ public class PackageServiceImpl implements PackageService {
         Package packet = this.packageRepository.findOne(id);
         packet.setStatus(Status.DELIVERED);
 
-        // not sure why update() keeps the old entity, so this will have to do for now..
-        this.packageRepository.deleteById(id);
         this.packageRepository.update(packet);
     }
 
@@ -105,8 +101,6 @@ public class PackageServiceImpl implements PackageService {
         Package packet = this.packageRepository.findByIdEager(id);
         packet.setStatus(Status.ACQUIRED);
 
-        // not sure why update() keeps the old entity, so this will have to do for now..
-        this.packageRepository.deleteById(id);
         this.packageRepository.update(packet);
 
         User user = this.userService.findByIdWithReceipts(packet.getRecipient().getId());

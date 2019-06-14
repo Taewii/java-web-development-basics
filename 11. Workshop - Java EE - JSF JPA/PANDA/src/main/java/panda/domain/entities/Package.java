@@ -1,6 +1,5 @@
 package panda.domain.entities;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @Table(name = "packages")
 public class Package extends BaseEntity {
 
@@ -41,7 +39,7 @@ public class Package extends BaseEntity {
     private LocalDateTime estimatedDeliveryDate;
 
     @OneToOne(mappedBy = "packet", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
+            fetch = FetchType.LAZY)
     private Receipt receipt;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -21,8 +21,11 @@
                         <c:when test="#{packageDetailsBean.model.status == 'PENDING'}">
                             <h3 class="text-center mt-1">N/A</h3>
                         </c:when>
-                        <c:when test="#{packageDetailsBean.model.status == 'DELIVERED' || packageDetailsBean.model.status == 'ACQUIRED'}">
+                        <c:when test="#{packageDetailsBean.model.status == 'DELIVERED'}">
                             <h3 class="text-center mt-1">Delivered</h3>
+                        </c:when>
+                        <c:when test="#{ packageDetailsBean.model.status == 'ACQUIRED'}">
+                            <h3 class="text-center mt-1">Acquired</h3>
                         </c:when>
                         <c:otherwise>
                             <h3 class="text-center mt-1">

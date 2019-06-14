@@ -37,7 +37,7 @@
                         <div class="border-panda p-3">
                             <c:choose>
                                 <c:when test="#{role == 'ADMIN'}">
-                                    <c:forEach var="packet" items="#{packageListingBean.deliveredIndex}">
+                                    <c:forEach var="packet" items="#{packageListingBean.deliveredAndAcquiredIndex}">
                                         <div class="p-2 d-flex justify-content-around">
                                             <h4 class="w-75">#{packet.description}</h4>
                                             <a href="/packages/details?id=${packet.id}"

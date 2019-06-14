@@ -53,8 +53,10 @@ public class PackageListingBean extends BaseBean {
         return Collections.unmodifiableList(packageService.findAllByStatus(Status.SHIPPED, PackageIndexViewModel.class));
     }
 
-    public List<PackageIndexViewModel> getDeliveredIndex() {
-        return Collections.unmodifiableList(packageService.findAllByStatus(Status.DELIVERED, PackageIndexViewModel.class));
+    public List<PackageIndexViewModel> getDeliveredAndAcquiredIndex() {
+        List<PackageIndexViewModel> deliveredAndAcquired = packageService.findAllByStatus(Status.DELIVERED, PackageIndexViewModel.class);
+        deliveredAndAcquired.addAll(packageService.findAllByStatus(Status.ACQUIRED, PackageIndexViewModel.class));
+        return Collections.unmodifiableList(deliveredAndAcquired);
     }
 
     public List<PackagePendingAndDeliveredViewModel> getPendingEager() {
