@@ -1,8 +1,15 @@
 package panda.services;
 
-import panda.domain.entities.Receipt;
+import panda.domain.models.view.ReceiptDetailsViewModel;
+import panda.domain.models.view.ReceiptListViewModel;
+
+import java.util.List;
 
 public interface ReceiptService {
 
-    void save(Receipt receipt);
+    List<ReceiptListViewModel> findAll();
+
+    List<ReceiptListViewModel> findByUserId(String id);
+
+    ReceiptDetailsViewModel findByReceiptIdEager(String receiptId);
 }

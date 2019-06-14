@@ -84,7 +84,7 @@ public class PackageServiceImpl implements PackageService {
 
         packet.setEstimatedDeliveryDate(deliveryDate);
         packet.setStatus(Status.SHIPPED);
-        
+
         this.packageRepository.update(packet);
     }
 

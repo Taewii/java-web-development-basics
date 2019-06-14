@@ -1,21 +1,45 @@
 package panda.services;
 
-import panda.domain.entities.Receipt;
+import org.modelmapper.ModelMapper;
+import panda.domain.models.view.ReceiptDetailsViewModel;
+import panda.domain.models.view.ReceiptListViewModel;
 import panda.repositories.ReceiptRepository;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReceiptServiceImpl implements ReceiptService {
 
     private final ReceiptRepository receiptRepository;
+    private final ModelMapper mapper;
 
     @Inject
-    public ReceiptServiceImpl(ReceiptRepository receiptRepository) {
+    public ReceiptServiceImpl(ReceiptRepository receiptRepository, ModelMapper mapper) {
         this.receiptRepository = receiptRepository;
+        this.mapper = mapper;
     }
 
     @Override
-    public void save(Receipt receipt) {
-        this.receiptRepository.save(receipt);
+    public List<ReceiptListViewModel> findAll() {
+        return this.receiptRepository
+                .findAllWithUser()
+                .stream()
+                .map(receipt -> this.mapper.map(receipt, ReceiptListViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReceiptListViewModel> findByUserId(String id) {
+        return this.receiptRepository
+                .findByUserIdWithUser(id)
+                .stream()
+                .map(receipt -> this.mapper.map(receipt, ReceiptListViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ReceiptDetailsViewModel findByReceiptIdEager(String receiptId) {
+        return this.mapper.map(this.receiptRepository.findByReceiptIdEager(receiptId), ReceiptDetailsViewModel.class);
     }
 }

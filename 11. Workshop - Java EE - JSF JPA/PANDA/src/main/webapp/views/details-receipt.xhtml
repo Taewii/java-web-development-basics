@@ -1,0 +1,49 @@
+<ui:composition template="templates/base-layout.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="main-content">
+        <h1 class="text-center">Receipt Details</h1>
+        <hr class="hr-2 bg-panda"/>
+        <div class="mx-auto">
+            <div class="receipt-id-handler d-flex justify-content-between">
+                <h3>Receipt Number:</h3>
+                <h3>#{receiptDetailsBean.model.id}</h3>
+            </div>
+            <hr class="hr-2 bg-panda"/>
+            <div class="d-flex justify-content-between">
+                <h4>Issued On:</h4>
+                <h4>
+                    <h:outputText value="#{receiptDetailsBean.model.issuedOn}">
+                        <f:converter converterId="com.panda.LocalDateTimeConverter"/>
+                    </h:outputText>
+                </h4>
+            </div>
+            <div class="d-flex justify-content-between">
+                <h4>Delivery Address:</h4>
+                <h4>#{receiptDetailsBean.model.packetShippingAddress}</h4>
+            </div>
+            <hr class="hr-2 bg-panda"/>
+            <div class="d-flex justify-content-between">
+                <h4>Package Weight (KG):</h4>
+                <h4><h:outputText value="#{receiptDetailsBean.model.packetWeight}">
+                    <f:convertNumber pattern="#0.00"/>
+                </h:outputText></h4>
+            </div>
+            <div class="d-flex justify-content-between">
+                <h4>Package Description:</h4>
+                <h4>#{receiptDetailsBean.model.packetDescription}</h4>
+            </div>
+            <div class="d-flex justify-content-between">
+                <h4>Recipient:</h4>
+                <h4>#{receiptDetailsBean.model.recipientUsername}</h4>
+            </div>
+            <hr class="hr-2 bg-panda"/>
+            <div class="fee-holder d-flex justify-content-end">
+                <h3>Total: $<h:outputText value="#{receiptDetailsBean.model.fee}">
+                    <f:convertNumber pattern="#0.00"/>
+                </h:outputText></h3>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

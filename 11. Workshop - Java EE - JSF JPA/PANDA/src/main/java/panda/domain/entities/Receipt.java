@@ -28,6 +28,5 @@ public class Receipt extends BaseEntity {
     private User recipient;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     private Package packet;
 }

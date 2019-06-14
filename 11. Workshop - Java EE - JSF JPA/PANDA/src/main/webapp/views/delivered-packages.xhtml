@@ -19,7 +19,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="packet" items="#{packageListingBean.deliveredEager}" varStatus="loop">
+                <c:forEach var="packet" items="#{packageListingBean.deliveredAndAcquiredEager}" varStatus="loop">
                     <tr class="row">
                         <th scope="row" class="col-lg-1 d-flex justify-content-center"><h5>#{loop.index + 1}</h5></th>
                         <td class="col-lg-4 d-flex justify-content-center"><h5>#{packet.description}</h5></td>
