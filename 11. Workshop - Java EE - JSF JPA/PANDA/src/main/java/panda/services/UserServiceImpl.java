@@ -5,47 +5,36 @@ import panda.domain.entities.User;
 import panda.domain.enums.Role;
 import panda.domain.models.binding.UserLoginBindingModel;
 import panda.domain.models.binding.UserRegisterBindingModel;
-import panda.domain.models.view.LoggedInUserViewModel;
-import panda.domain.models.view.UserOptionViewModel;
+import panda.domain.models.view.user.LoggedInUserViewModel;
+import panda.domain.models.view.user.UserOptionViewModel;
 import panda.repositories.UserRepository;
+import panda.util.ModelValidator;
 import panda.util.PasswordHash;
 
 import javax.ejb.EJBTransactionRolledbackException;
 import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final Validator validator;
     private final ModelMapper mapper;
 
     @Inject
-    public UserServiceImpl(UserRepository userRepository, Validator validator, ModelMapper mapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper mapper) {
         this.userRepository = userRepository;
-        this.validator = validator;
         this.mapper = mapper;
     }
 
     @Override
-    public void register(UserRegisterBindingModel user) {
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = this.validator.validate(user);
-        String message;
-        if (!violations.isEmpty() || !user.getPassword().equals(user.getConfirmPassword())) {
-            message = violations.stream().map(v -> String.format("%s value '%s' %s", v.getPropertyPath(),
-                    v.getInvalidValue(), v.getMessage()))
-                    .collect(Collectors.joining(", "));
-            if (!user.getPassword().equals(user.getConfirmPassword())) {
-                message += "Passwords don't match";
-            }
-            throw new IllegalArgumentException(message);
+    public boolean register(UserRegisterBindingModel user) {
+        String violationsMessage = ModelValidator.validateModel(user);
+        if (violationsMessage != null || !user.getPassword().equals(user.getConfirmPassword())) {
+            return false;
         }
 
         try {
@@ -59,13 +48,20 @@ public class UserServiceImpl implements UserService {
 
         try {
             this.userRepository.save(entity);
-        } catch (EJBTransactionRolledbackException e) { // TODO: 30.5.2019 г. figure out how handle this correctly
-            throw new IllegalArgumentException("Username/e-mail is already in use.");
+        } catch (EJBTransactionRolledbackException e) {
+            return false;
         }
+
+        return true;
     }
 
     @Override
     public Optional<LoggedInUserViewModel> login(UserLoginBindingModel model) {
+        String violationsMessage = ModelValidator.validateModel(model);
+        if (violationsMessage != null) {
+            throw new IllegalArgumentException(violationsMessage);
+        }
+
         return this.userRepository.findByAttributeAndValue("username", model.getUsername())
                 .stream()
                 .filter(user -> {

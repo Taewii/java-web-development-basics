@@ -2,7 +2,7 @@ package panda.web.beans.packets;
 
 import lombok.NoArgsConstructor;
 import panda.domain.models.binding.PackageCreateBindingModel;
-import panda.domain.models.view.UserOptionViewModel;
+import panda.domain.models.view.user.UserOptionViewModel;
 import panda.services.PackageService;
 import panda.services.UserService;
 import panda.web.beans.BaseBean;
@@ -36,8 +36,11 @@ public class PackageCreateBean extends BaseBean {
     }
 
     public void create() {
-        this.packageService.create(this.model);
-        super.redirect("/");
+        if (this.packageService.create(this.model)) {
+            super.redirect("/");
+        } else {
+            super.addMessage("Package creation failed.");
+        }
     }
 
     public PackageCreateBindingModel getModel() {

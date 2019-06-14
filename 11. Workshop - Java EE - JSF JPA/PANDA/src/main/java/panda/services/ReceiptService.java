@@ -1,7 +1,7 @@
 package panda.services;
 
-import panda.domain.models.view.ReceiptDetailsViewModel;
-import panda.domain.models.view.ReceiptListViewModel;
+import panda.domain.models.view.receipts.ReceiptDetailsViewModel;
+import panda.domain.models.view.receipts.ReceiptListViewModel;
 
 import java.util.List;
 

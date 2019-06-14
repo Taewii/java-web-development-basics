@@ -40,8 +40,8 @@ public abstract class BaseCrudRepository<Entity extends Identifiable<Id>, Id> im
     }
 
     @Override
-    public void update(Entity entity) {
-        this.entityManager.merge(entity);
+    public Entity update(Entity entity) {
+        return this.entityManager.merge(entity);
     }
 
     @Override

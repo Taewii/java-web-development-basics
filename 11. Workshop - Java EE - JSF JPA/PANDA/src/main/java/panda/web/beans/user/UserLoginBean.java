@@ -6,7 +6,6 @@ import panda.services.UserService;
 import panda.web.beans.BaseBean;
 
 import javax.enterprise.inject.Model;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -25,12 +24,12 @@ public class UserLoginBean extends BaseBean {
 
     public void login() {
         this.userService.login(this.model).ifPresentOrElse(user -> {
-            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            HttpSession session = (HttpSession) super.externalContext.getSession(true);
             session.setAttribute("userId", user.getId());
             session.setAttribute("username", user.getUsername());
             session.setAttribute("role", user.getRole());
             super.redirect("/");
-        }, () -> super.redirect("/login"));
+        }, super.addMessageRunnable("Login failed. Check username or password"));
     }
 
     public UserLoginBindingModel getModel() {

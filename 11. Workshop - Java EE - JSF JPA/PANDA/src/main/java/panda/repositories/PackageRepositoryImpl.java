@@ -2,7 +2,7 @@ package panda.repositories;
 
 import panda.domain.entities.Package;
 import panda.domain.enums.Status;
-import panda.domain.models.view.PackageDetailsViewModel;
+import panda.domain.models.view.packets.PackageDetailsViewModel;
 
 import javax.ejb.Stateless;
 import java.util.List;
@@ -14,7 +14,7 @@ public class PackageRepositoryImpl extends BaseCrudRepository<Package, String> i
     public PackageDetailsViewModel findByIdWithUser(String id) {
         return super.entityManager
                 .createQuery("" +
-                        "SELECT new panda.domain.models.view.PackageDetailsViewModel(p.description, p.weight, p.shippingAddress, p.status, p.estimatedDeliveryDate, p.recipient.username) " +
+                        "SELECT new panda.domain.models.view.packets.PackageDetailsViewModel(p.description, p.weight, p.shippingAddress, p.status, p.estimatedDeliveryDate, p.recipient.username) " +
                         "FROM Package p " +
                         "WHERE p.id = :id", PackageDetailsViewModel.class)
                 .setParameter("id", id)
@@ -25,8 +25,7 @@ public class PackageRepositoryImpl extends BaseCrudRepository<Package, String> i
     public List<Package> findAllByStatusEager(Status status) {
         return super.entityManager
                 .createQuery("" +
-                        "SELECT p " +
-                        "FROM Package p " +
+                        "SELECT p FROM Package p " +
                         "JOIN FETCH p.recipient " +
                         "WHERE p.status = :status", Package.class)
                 .setParameter("status", status)
@@ -36,7 +35,10 @@ public class PackageRepositoryImpl extends BaseCrudRepository<Package, String> i
     @Override
     public List<Package> findAllByStatusAndUserId(Status status, String userId) {
         return super.entityManager
-                .createQuery("SELECT p FROM Package p WHERE p.status = :status AND p.recipient.id = :userId", Package.class)
+                .createQuery("" +
+                        "SELECT p FROM Package p " +
+                        "WHERE p.status = :status " +
+                        "AND p.recipient.id = :userId", Package.class)
                 .setParameter("status", status)
                 .setParameter("userId", userId)
                 .getResultList();
@@ -45,7 +47,10 @@ public class PackageRepositoryImpl extends BaseCrudRepository<Package, String> i
     @Override
     public Package findByIdEager(String id) {
         return super.entityManager
-                .createQuery("SELECT p FROM Package p JOIN FETCH p.recipient WHERE p.id = :id", Package.class)
+                .createQuery("" +
+                        "SELECT p FROM Package p " +
+                        "JOIN FETCH p.recipient " +
+                        "WHERE p.id = :id", Package.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

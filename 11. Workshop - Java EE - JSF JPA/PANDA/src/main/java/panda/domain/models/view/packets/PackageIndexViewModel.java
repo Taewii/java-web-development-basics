@@ -1,4 +1,4 @@
-package panda.domain.models.view;
+package panda.domain.models.view.packets;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,9 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LoggedInUserViewModel {
+public class PackageIndexViewModel {
 
     private String id;
-    private String username;
-    private String role;
+    private String description;
 }

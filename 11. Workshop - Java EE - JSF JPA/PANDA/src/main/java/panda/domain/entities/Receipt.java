@@ -24,9 +24,9 @@ public class Receipt extends BaseEntity {
     private LocalDateTime issuedOn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User recipient;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Package packet;
 }

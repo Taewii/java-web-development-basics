@@ -6,11 +6,11 @@ import panda.domain.entities.Receipt;
 import panda.domain.entities.User;
 import panda.domain.enums.Status;
 import panda.domain.models.binding.PackageCreateBindingModel;
-import panda.domain.models.view.PackageDetailsViewModel;
+import panda.domain.models.view.packets.PackageDetailsViewModel;
 import panda.repositories.PackageRepository;
+import panda.util.ModelValidator;
 
 import javax.inject.Inject;
-import javax.validation.Validator;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,29 +21,30 @@ public class PackageServiceImpl implements PackageService {
 
     private final PackageRepository packageRepository;
     private final UserService userService;
-    private final Validator validator;
     private final ModelMapper mapper;
 
     @Inject
     public PackageServiceImpl(PackageRepository packageRepository,
                               UserService userService,
-                              Validator validator,
                               ModelMapper mapper) {
         this.packageRepository = packageRepository;
         this.userService = userService;
-        this.validator = validator;
         this.mapper = mapper;
     }
 
 
     @Override
-    public void create(PackageCreateBindingModel model) {
-        // TODO: 12.6.2019 г. validate and make base service class
+    public boolean create(PackageCreateBindingModel model) {
+        if (ModelValidator.validateModel(model) != null) {
+            return false;
+        }
+
         User user = this.userService.findByIdWithPackages(model.getRecipient());
         Package packet = this.mapper.map(model, Package.class);
         packet.setStatus(Status.PENDING);
         user.addPackage(packet);
         this.userService.update(user);
+        return true;
     }
 
     @Override

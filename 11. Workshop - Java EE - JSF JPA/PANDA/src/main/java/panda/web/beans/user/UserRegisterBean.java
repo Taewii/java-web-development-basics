@@ -22,8 +22,11 @@ public class UserRegisterBean extends BaseBean {
     }
 
     public void register() {
-        this.userService.register(this.model);
-        super.redirect("/");
+        if (this.userService.register(this.model)) {
+            super.redirect("/login");
+        } else {
+            super.addMessage("Registration failed. Please try again.");
+        }
     }
 
     public UserRegisterBindingModel getModel() {

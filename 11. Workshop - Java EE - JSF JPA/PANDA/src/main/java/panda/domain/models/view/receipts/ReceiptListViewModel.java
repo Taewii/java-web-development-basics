@@ -1,5 +1,6 @@
-package panda.domain.models.view;
+package panda.domain.models.view.receipts;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,13 +11,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ReceiptDetailsViewModel {
+@AllArgsConstructor
+public class ReceiptListViewModel {
 
     private String id;
-    private LocalDateTime issuedOn;
-    private String packetShippingAddress;
-    private Double packetWeight;
-    private String packetDescription;
-    private String recipientUsername;
     private BigDecimal fee;
+    private LocalDateTime issuedOn;
+    private String recipientUsername;
 }

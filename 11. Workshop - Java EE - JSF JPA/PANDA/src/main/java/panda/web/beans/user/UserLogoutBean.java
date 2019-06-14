@@ -4,16 +4,13 @@ import lombok.NoArgsConstructor;
 import panda.web.beans.BaseBean;
 
 import javax.enterprise.inject.Model;
-import javax.faces.context.FacesContext;
 
 @Model
 @NoArgsConstructor
 public class UserLogoutBean extends BaseBean {
 
     public void logout() {
-        FacesContext.getCurrentInstance()
-                .getExternalContext()
-                .invalidateSession();
+        super.externalContext.invalidateSession();
         super.redirect("/");
     }
 }

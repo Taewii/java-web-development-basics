@@ -1,8 +1,8 @@
 package panda.services;
 
 import org.modelmapper.ModelMapper;
-import panda.domain.models.view.ReceiptDetailsViewModel;
-import panda.domain.models.view.ReceiptListViewModel;
+import panda.domain.models.view.receipts.ReceiptDetailsViewModel;
+import panda.domain.models.view.receipts.ReceiptListViewModel;
 import panda.repositories.ReceiptRepository;
 
 import javax.inject.Inject;

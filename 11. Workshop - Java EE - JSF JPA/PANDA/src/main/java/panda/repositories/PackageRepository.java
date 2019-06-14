@@ -2,7 +2,7 @@ package panda.repositories;
 
 import panda.domain.entities.Package;
 import panda.domain.enums.Status;
-import panda.domain.models.view.PackageDetailsViewModel;
+import panda.domain.models.view.packets.PackageDetailsViewModel;
 
 import java.util.List;
 

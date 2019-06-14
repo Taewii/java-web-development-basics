@@ -9,7 +9,8 @@ public class UserRepositoryImpl extends BaseCrudRepository<User, String> impleme
 
     @Override
     public boolean isTableEmpty() {
-        return super.entityManager.createQuery("SELECT u FROM User u")
+        return super.entityManager
+                .createQuery("SELECT u FROM User u")
                 .setMaxResults(1)
                 .getResultList()
                 .isEmpty();
@@ -18,7 +19,10 @@ public class UserRepositoryImpl extends BaseCrudRepository<User, String> impleme
     @Override
     public User findByIdWithPackages(String id) {
         return super.entityManager
-                .createQuery("SELECT u FROM User u LEFT JOIN FETCH u.packages WHERE u.id = :id", User.class)
+                .createQuery("" +
+                        "SELECT u FROM User u " +
+                        "LEFT JOIN FETCH u.packages " +
+                        "WHERE u.id = :id", User.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
@@ -26,7 +30,10 @@ public class UserRepositoryImpl extends BaseCrudRepository<User, String> impleme
     @Override
     public User findByIdWithReceipts(String id) {
         return super.entityManager
-                .createQuery("SELECT u FROM User u LEFT JOIN FETCH u.receipts WHERE u.id = :id", User.class)
+                .createQuery("" +
+                        "SELECT u FROM User u " +
+                        "LEFT JOIN FETCH u.receipts " +
+                        "WHERE u.id = :id", User.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

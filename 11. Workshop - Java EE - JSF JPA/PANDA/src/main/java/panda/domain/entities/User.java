@@ -32,6 +32,7 @@ public class User extends BaseEntity {
     private String email;
 
     @Column
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
 

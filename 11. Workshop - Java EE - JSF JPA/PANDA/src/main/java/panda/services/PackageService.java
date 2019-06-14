@@ -2,13 +2,13 @@ package panda.services;
 
 import panda.domain.enums.Status;
 import panda.domain.models.binding.PackageCreateBindingModel;
-import panda.domain.models.view.PackageDetailsViewModel;
+import panda.domain.models.view.packets.PackageDetailsViewModel;
 
 import java.util.List;
 
 public interface PackageService {
 
-    void create(PackageCreateBindingModel model);
+    boolean create(PackageCreateBindingModel model);
 
     <T> List<T> findAllByStatus(Status status, Class<T> targetEntity);
 

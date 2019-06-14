@@ -1,7 +1,7 @@
 package panda.web.beans.receipt;
 
 import lombok.NoArgsConstructor;
-import panda.domain.models.view.ReceiptListViewModel;
+import panda.domain.models.view.receipts.ReceiptListViewModel;
 import panda.services.ReceiptService;
 import panda.web.beans.BaseBean;
 

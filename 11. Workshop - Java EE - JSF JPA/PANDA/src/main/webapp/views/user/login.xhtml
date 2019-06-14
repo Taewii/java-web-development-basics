@@ -1,4 +1,4 @@
-<ui:composition template="templates/base-layout.xhtml"
+<ui:composition template="../templates/base-layout.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
@@ -20,5 +20,6 @@
                 <h:commandButton styleClass="btn bg-panda text-white" value="Login" action="#{userLoginBean.login}"/>
             </div>
         </h:form>
+        <h:messages styleClass="error-msg"/>
     </ui:define>
 </ui:composition>

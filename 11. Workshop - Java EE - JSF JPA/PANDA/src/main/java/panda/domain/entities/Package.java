@@ -18,11 +18,11 @@ import java.time.LocalDateTime;
 @Table(name = "packages")
 public class Package extends BaseEntity {
 
-    @Column
+    @Column(nullable = false)
     private String description;
 
     @Min(0)
-    @Column
+    @Column(nullable = false)
     private Double weight;
 
     @NotNull
@@ -38,12 +38,11 @@ public class Package extends BaseEntity {
     @Column(name = "estimated_delivery_date")
     private LocalDateTime estimatedDeliveryDate;
 
-    @OneToOne(mappedBy = "packet", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "packet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Receipt receipt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User recipient;
 
     public void addReceipt(Receipt receipt) {

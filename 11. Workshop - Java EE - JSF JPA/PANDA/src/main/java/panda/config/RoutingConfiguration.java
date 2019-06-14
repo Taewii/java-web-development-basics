@@ -15,15 +15,15 @@ public class RoutingConfiguration extends HttpConfigurationProvider {
     public Configuration getConfiguration(ServletContext context) {
         return ConfigurationBuilder.begin()
                 .addRule(Join.path("/").to("/faces/views/index.xhtml"))
-                .addRule(Join.path("/register").to("/faces/views/register.xhtml"))
-                .addRule(Join.path("/login").to("/faces/views/login.xhtml"))
-                .addRule(Join.path("/packages/create").to("/faces/views/create-package.xhtml"))
-                .addRule(Join.path("/packages/details").to("/faces/views/details-package.xhtml"))
-                .addRule(Join.path("/packages/pending").to("/faces/views/pending-packages.xhtml"))
-                .addRule(Join.path("/packages/shipped").to("/faces/views/shipped-packages.xhtml"))
-                .addRule(Join.path("/packages/delivered").to("/faces/views/delivered-packages.xhtml"))
-                .addRule(Join.path("/receipts").to("/faces/views/receipts.xhtml"))
-                .addRule(Join.path("/receipt").to("/faces/views/details-receipt.xhtml"));
+                .addRule(Join.path("/register").to("/faces/views/user/register.xhtml"))
+                .addRule(Join.path("/login").to("/faces/views/user/login.xhtml"))
+                .addRule(Join.path("/packages/create").to("/faces/views/packets/create-package.xhtml"))
+                .addRule(Join.path("/packages/details").to("/faces/views/packets/details-package.xhtml"))
+                .addRule(Join.path("/packages/pending").to("/faces/views/packets/pending-packages.xhtml"))
+                .addRule(Join.path("/packages/shipped").to("/faces/views/packets/shipped-packages.xhtml"))
+                .addRule(Join.path("/packages/delivered").to("/faces/views/packets/delivered-packages.xhtml"))
+                .addRule(Join.path("/receipts").to("/faces/views/receipts/receipts.xhtml"))
+                .addRule(Join.path("/receipt").to("/faces/views/receipts/details-receipt.xhtml"));
     }
 
     @Override

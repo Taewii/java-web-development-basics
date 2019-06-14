@@ -30,6 +30,6 @@ public class PackageActionsBean extends BaseBean {
 
     public void acquire(String id) {
         this.packageService.acquire(id);
-        super.redirect("/");
+        super.redirect("/receipts");
     }
 }

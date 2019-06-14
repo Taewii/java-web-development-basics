@@ -1,4 +1,4 @@
-package panda.domain.models.view;
+package panda.domain.models.view.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

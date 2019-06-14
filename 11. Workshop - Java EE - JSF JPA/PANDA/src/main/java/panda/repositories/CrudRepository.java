@@ -14,7 +14,7 @@ public interface CrudRepository<Entity extends Identifiable<Id>, Id> {
 
     void save(Entity entity);
 
-    void update(Entity entity);
+    Entity update(Entity entity);
 
     void delete(Entity entity);
 
