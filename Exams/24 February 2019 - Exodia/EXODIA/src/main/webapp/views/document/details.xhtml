@@ -1,0 +1,17 @@
+<ui:composition template="../templates/base-layout.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+
+    <ui:define name="main-content">
+        <div class="caption-holder d-flex justify-content-between pt-1">
+            <h5 class="text-left text-muted">Details</h5>
+            <h5 class="text-right text-muted">Document - #{documentDetailsBean.model.id}</h5>
+        </div>
+        <hr class="bg-exodia hr-2"/>
+        <form class="mx-auto w-75">
+            <h1 class="text-center text-exodia">#{documentDetailsBean.model.title}</h1>
+            <hr class="bg-exodia hr-2"/>
+            <p class="text-justify">#{documentDetailsBean.model.content}</p>
+        </form>
+    </ui:define>
+</ui:composition>

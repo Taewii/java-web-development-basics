@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter({"/packages/*", "/receipts/*", "/receipt/*"})
+@WebFilter({"/schedule/*", "/print/*", "/details/*"})
 public class GuestAuthorizationFilter implements Filter {
 
     @Override

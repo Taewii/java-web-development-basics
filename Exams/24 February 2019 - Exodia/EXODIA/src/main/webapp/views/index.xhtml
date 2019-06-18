@@ -1,6 +1,35 @@
 <ui:composition template="templates/base-layout.xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
->
+                xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="main-content">
-
+        <c:choose>
+            <c:when test="#{username == null}">
+                <div class="jumbotron mt-3 bg-exodia">
+                    <h1 class="text-white">Welcome to EXODIA Xerox Information.</h1>
+                    <hr class="bg-white hr-2"/>
+                    <h3 class="text-white"><a href="/login">Login</a> if you have an account.</h3>
+                    <h3 class="text-white"><a href="/register">Register</a> if you don't.</h3>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="print-container container-fluid">
+                    <c:forEach items="#{documentIndexBean.documents}" var="document" varStatus="loop">
+                        <h:outputText value="&lt;div class='row mb-4 d-flex justify-content-between'&gt;"
+                                      escape="false" rendered="#{loop.index % 5 == 0}"/>
+                        <div class="print-scheduled col-md-2 bg-exodia rounded">
+                            <h5 class="text-center text-white font-weight-bold py-3 mt-3">#{document.title}</h5>
+                            <hr class="bg-white"/>
+                            <div class="buttons-holder w-75 mx-auto d-flex justify-content-between">
+                                <a href="/print?id=#{document.id}"
+                                   class="btn bg-exodia text-white font-weight-bold mb-3">Print</a>
+                                <a href="/details?id=#{document.id}"
+                                   class="btn bg-exodia text-white font-weight-bold mb-3">Details</a>
+                            </div>
+                        </div>
+                        <h:outputText value="&lt;/div&gt;" escape="false"
+                                      rendered="#{loop.last or (loop.index + 1) % 5 == 0}"/>
+                    </c:forEach>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </ui:define>
 </ui:composition>
