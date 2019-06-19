@@ -10,10 +10,9 @@ import exodia.domain.models.view.DocumentIndexViewModel;
 import exodia.repositories.DocumentRepository;
 import exodia.util.ModelValidator;
 import org.modelmapper.ModelMapper;
+import org.xhtmlrenderer.util.XRRuntimeException;
 
 import javax.inject.Inject;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,7 +51,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<DocumentIndexViewModel> findAllIndexView() {
-        return this.documentRepository.findAll().stream()
+        return this.documentRepository.findAll().parallelStream()
                 .map(document -> this.mapper.map(document, DocumentIndexViewModel.class))
                 .peek(doc -> {
                     if (doc.getTitle().length() > 12) {
@@ -63,22 +62,23 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public void getPdf(String documentId) {
+    public void print(String documentId) {
+        this.documentRepository.deleteById(documentId);
+    }
+
+    @Override
+    public Optional<byte[]> getPdf(String documentId) {
         DocumentDetailsViewModel doc = this.findById(documentId, DocumentDetailsViewModel.class);
         String content = String.format("<h1 style=\"text-align: center;\">%s</h1>\n", doc.getTitle()) + doc.getContent();
 
         try {
             String html = this.markdown2HtmlConverter.convert(content);
-            html = "<div>" + html
-                    .replaceAll("(?<=<h[0-6])>", " style=\"text-align: center;\">")
-                    .replaceAll("(?<=</h[0-6])>", ">\n<hr />\n")
-                    + "</div>";
-            byte[] bytes = this.html2PdfConverter.convert(html);
-            FileOutputStream fos = new FileOutputStream("E:\\SoftUni\\java-web-development-basics\\Exams\\24 February 2019 - Exodia\\EXODIA\\src\\main\\webapp\\resources\\test.pdf");
-            fos.write(bytes);
-            fos.close();
-        } catch (ConversionException | IOException e) {
+            html = "<div>" + html.replaceAll("(?<=</h[0-6])>", ">\n<hr />\n") + "</div>";
+            return Optional.of(this.html2PdfConverter.convert(html));
+        } catch (ConversionException | XRRuntimeException e) {
             e.printStackTrace();
         }
+
+        return Optional.empty();
     }
 }

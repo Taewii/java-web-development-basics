@@ -14,5 +14,7 @@ public interface DocumentService {
 
     List<DocumentIndexViewModel> findAllIndexView();
 
-    void getPdf(String documentId);
+    Optional<byte[]> getPdf(String documentId);
+
+    void print(String documentId);
 }

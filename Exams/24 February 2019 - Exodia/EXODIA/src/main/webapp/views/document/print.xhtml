@@ -24,10 +24,16 @@
             <hr class="bg-exodia hr-2"/>
             <div class="button-holder d-flex justify-content-center">
                 <h:commandButton styleClass="btn bg-exodia text-white" value="Print"
+                                 action="#{documentPrintBean.print}">
+                    <f:param name="id" value="#{documentPrintBean.model.id}"/>
+                </h:commandButton>
+
+                <h:commandButton styleClass="btn bg-exodia text-white mx-1" value="Download as PDF"
                                  action="#{documentPrintBean.getAsPdf}">
                     <f:param name="id" value="#{documentPrintBean.model.id}"/>
                 </h:commandButton>
             </div>
         </h:form>
+        <h:messages styleClass="error-msg"/>
     </ui:define>
 </ui:composition>
